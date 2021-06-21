@@ -42,10 +42,6 @@ tokens = (
     'RANGEXCLUSIVE',
     'CONSTANT',
     'VAR',
-    'HORZTAB',
-    'VERTAB',
-    'SINGLEQUOTE',
-    'DOUBLEQUOTE',
     #Adriana Riofrio
 
 ) + tuple(reserved.values())
@@ -75,10 +71,6 @@ t_TIMESASSIGN = r'\*='
 t_DIVASSIGN = r'\\='
 t_RANGEINCLUSIVE = r'\.\.'
 t_RANGEXCLUSIVE = r'\.\.\.'
-t_HORZTAB = r'\\t'
-t_VERTAB = r'\\v'
-t_SINGLEQUOTE = r"\'"
-t_DOUBLEQUOTE = r'\\"'
 #Adriana Riofrio
 
 #Adriana Riofrio
@@ -105,9 +97,26 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
-
+#Adriana Riofrio
 # A string containing ignored characters (spaces and tabs)
-t_ignore = ' \t'
+t_ignore = ' \t\v'
+
+literals = ["\'", '\"','\\']
+def t_singlequote(t):
+    r"'\\''"
+    t.type = "\'"
+    return t
+
+def t_doublequote(t):
+    r'"\\""'
+    t.type = '\"'
+    return t
+
+def t_backslash(t):
+    r'(\'\\\\\'|"\\\\")'
+    t.type = '\\'
+    return t
+#Adriana Riofrio
 
 # Error handling rule
 def t_error(t):
