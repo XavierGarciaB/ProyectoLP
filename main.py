@@ -92,11 +92,11 @@ tokens = (
     'LLAVED',
     'COMA',
     'PUNTOCOMA',
-    'COMENTARIO',
+    'COMENTARIO'
     #'AZ',
-    'BACKO',
-    'BACKX',
-    'BACKU'
+    #'BACKO',
+    #'BACKX',
+    #'BACKU'
     #Luis Anchundia
 
 ) + tuple(reserved.values())
