@@ -2,7 +2,17 @@ import ply.lex as lex
 
 # List of token names.   This is always required
 
+
 reserved = {
+    #Xavier Garcia
+    'puts': 'PUTS',
+    'print': 'PRINT',
+    'BEGIN': 'BEGIN_M',
+    'END': 'END_M',
+    'begin': 'BEGIN',
+    'def': 'DEF',
+    #Xavier Garcia
+
     #Adriana R
     'if': 'IF',
     'else': 'ELSE',
@@ -14,12 +24,12 @@ reserved = {
     #Adriana R
 
     #Luis Anchundia
-    'in' : 'IN',
-    'not' : 'NOT',
-    'or' : 'OR',
-    'return' : 'RETURN',
-    'true' : 'TRUE',
-    'until' : 'UNTIL'
+    'in': 'IN',
+    'not': 'NOT',
+    'or': 'OR',
+    'return': 'RETURN',
+    'true': 'TRUE',
+    'until': 'UNTIL'
     #Luis Anchundia
 
 
@@ -27,12 +37,25 @@ reserved = {
 
 tokens = (
     'NUMBER',
+    #Xavier Garcia
+    'EXCLAMATION',
     'PLUS',
     'MINUS',
-    'TIMES',
+    'WAVE',
+    'MULTIPLY',
+    'TWOSTARS',
     'DIVIDE',
-    'LPAREN',
-    'RPAREN',
+    'PERCENTAGE',
+    'DOUBLELESSTHAN',
+    'TWOGREATERTHAN',
+    'AMPERSAND',
+    'BARRA',
+    'CIRCUMFLEX',
+    'DOUBLEEQUAL',
+    'TRIPLEEQUAL',
+    'ALERT',
+    #Xavier Garcia
+
     #Adriana Riofrio
     'DOT',
     'NOTEQUAL',
@@ -79,12 +102,23 @@ tokens = (
 ) + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
+#Xavier Garcia
+t_NOT = r'\!'
 t_PLUS = r'\+'
 t_MINUS = r'-'
-t_TIMES = r'\*'
+t_WAVE = r'~'
+t_MULTIPLY = r'\*'
+t_TWOSTARS = r'\*\*'
 t_DIVIDE = r'/'
-t_LPAREN = r'\('
-t_RPAREN = r'\)'
+t_PERCENTAGE = r'%'
+t_DOUBLELESSTHAN = r'<<'
+t_TWOGREATERTHAN = r'>>'
+t_AMPERSAND = r'&'
+t_BARRA = r'\|'
+t_CIRCUMFLEX = r'\^'
+t_DOUBLEEQUAL = r'=='
+t_TRIPLEEQUAL = r'==='
+#Xavier Garcia
 
 #Adriana Riofrio
 t_DOT = r'\.'
@@ -124,18 +158,19 @@ t_COMENTARIO=r'\#.*'
 #Luis Anchundia
 
 
-
 #Adriana Riofrio
 def t_VAR(t):
     r'(@{0,2}|$)[a-z_][a-zA-Z_0-9]*'
     t.type = reserved.get(t.value, 'VAR')  # Check for reserved words
     return t
 
+
 def t_CONSTANT(t):
     r'[A-Z]+'
     t.type = reserved.get(t.value, 'CONSTANT')
     return t
 #Adriana Riofrio
+
 
 # A regular expression rule with some action code
 def t_NUMBER(t):
@@ -148,6 +183,40 @@ def t_NUMBER(t):
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
+
+
+#Xavier Garcia
+def t_ALERT(t):
+    r'"\w*\a\w*"'
+    t.value = r'\a'
+    return t
+
+
+def t_BACKSPACE(t):
+    r'"\w*\b\w*"'
+    t.value = r'\ b'
+    print(t.value)
+    return t
+
+
+def t_FORMFEED(t):
+    r'"\w*\f\w*"'
+    t.value = r'\f'
+    return t
+
+
+def t_NEWLINE(t):
+    r'"\w*\n\w*"'
+    t.value = r'\n'
+    return t
+
+
+def t_CARRIAGERETURN(t):
+    r'"\w*\r\w*"'
+    t.value = r'\r'
+    return t
+#Xavier Garcia
+
 
 #Adriana Riofrio
 # A string containing ignored characters (spaces and tabs)
@@ -198,17 +267,22 @@ def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
+
 def getTokens(lexer):
     while True:
         tok = lexer.token()
         if not tok:
             break  # No more input
         print(tok)
+
+
 # Build the lexer
 lexer = lex.lex()
-linea=" "
-while linea!="":
-    linea=input(">>")
+lineas = ["\"hola\aadios\"", "<< + 3 - 4 = @@variable", ""]
+cont = 0
+linea = lineas[cont]
+while linea != "":
     lexer.input(linea)
     getTokens(lexer)
-
+    cont = cont + 1
+    linea = lineas[cont]
