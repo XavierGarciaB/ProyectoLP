@@ -94,9 +94,9 @@ tokens = (
     'PUNTOCOMA',
     'COMENTARIO',
     #'AZ',
-    #'BACKO',
-    #'BACKX',
-    #'BACKU'
+    'BACKO',
+    'BACKX',
+    'BACKU'
     #Luis Anchundia
 
 ) + tuple(reserved.values())
@@ -246,18 +246,18 @@ def t_backslash(t):
 #    return t
 
 #def t_BACKO(t):
-#    r"'\o'"
-#    t.type = '\o'
+#    r'"\w*\o\w*"'
+#    t.value = r'\o'
 #    return t
 
 #def t_BACKU(t):
-#    r"'\u'"
-#    t.type = '\\u'
+#    r'"\w*\u\w*"'
+#    t.value = r'\u'
 #    return t
 
 #def t_BACKX(t):
-#    r"'\x'"
-#    t.type = '\\x'
+#    r'"\w*\x\w*"'
+#    t.value = r'\x'
 #    return t
 #Luis Anchundia
 
@@ -278,7 +278,7 @@ def getTokens(lexer):
 
 # Build the lexer
 lexer = lex.lex()
-lineas = ["\"hola\aadios\"", "<< + 3 - 4 = @@variable", ""]
+lineas = ["\"hola\adios\"", "<< + 3 - 4 = @@variable ", ""]
 cont = 0
 linea = lineas[cont]
 while linea != "":
