@@ -78,21 +78,21 @@ tokens = (
     #Adriana Riofrio
 
     #Luis Anchundia
-    'COMILLASIMPLE',
-    'COMILLAS',
-    'DOSPUNTOS',
-    'INTEDOSPUNTOS',
-    'DOBLEAPERSAND',
-    'DOBLEBARRA',
-    'PARENTESISI',
-    'PARENTESISD',
-    'CORCHETEI',
-    'CORCHETED',
-    'LLAVEI',
-    'LLAVED',
-    'COMA',
-    'PUNTOCOMA',
-    'COMENTARIO'
+    'SINGLEQUOTE',
+    'DOBLEQUOTE',
+    'COLON',
+    'QUESTIONMARKPERIOD',
+    'DOUBLEAMPERSAND',
+    'DOUBLEPIPE',
+    'LPARENTHESES',
+    'RPARENTHESES',
+    'LBRACKET',
+    'RBRACKET',
+    'LCURLYBRACKET',
+    'RCURLYBRACKET',
+    'COMMA',
+    'SEMICOLON',
+    'COMMENT'
     #'AZ',
     #'BACKO',
     #'BACKX',
@@ -140,21 +140,21 @@ t_RANGEXCLUSIVE = r'\.\.\.'
 #Adriana Riofrio
 
 #Luis Anchundia
-t_COMILLASIMPLE=r'\''
-t_COMILLAS=r'\"'
-t_DOSPUNTOS=';'
-t_INTEDOSPUNTOS='\?:'
-t_DOBLEAPERSAND='&&'
-t_DOBLEBARRA='\|\|'
-t_PARENTESISI='\('
-t_PARENTESISD='\)'
-t_CORCHETEI='\['
-t_CORCHETED='\]'
-t_LLAVEI='\{'
-t_LLAVED='\}'
-t_COMA=','
-t_PUNTOCOMA=';'
-t_COMENTARIO=r'\#.*'
+t_SINGLEQUOTE=r'\''
+t_DOBLEQUOTE=r'\"'
+t_COLON=';'
+t_QUESTIONMARKPERIOD='\?:'
+t_DOUBLEAMPERSAND='&&'
+t_DOUBLEPIPE='\|\|'
+t_LPARENTHESES='\('
+t_RPARENTHESES='\)'
+t_LBRACKET='\['
+t_RBRACKET='\]'
+t_LCURLYBRACKET='\{'
+t_RCURLYBRACKET='\}'
+t_COMMA=','
+t_SEMICOLON=';'
+t_COMMENT=r'\#.*'
 #Luis Anchundia
 
 
@@ -278,7 +278,7 @@ def getTokens(lexer):
 
 # Build the lexer
 lexer = lex.lex()
-lineas = ["\"hola\adios\"", "<< + 3 - 4 = @@variable ", ""]
+lineas = ["\"hola\adios\"", "{}<< + 3 - 4 = @@variable ", ""]
 cont = 0
 linea = lineas[cont]
 while linea != "":
