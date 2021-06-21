@@ -13,6 +13,16 @@ reserved = {
     'for': 'FOR',
     #Adriana R
 
+    #Luis Anchundia
+    'in' : 'IN',
+    'not' : 'NOT',
+    'or' : 'OR',
+    'return' : 'RETURN',
+    'true' : 'TRUE',
+    'until' : 'UNTIL'
+    #Luis Anchundia
+
+
 }
 
 tokens = (
@@ -44,6 +54,28 @@ tokens = (
     'VAR',
     #Adriana Riofrio
 
+    #Luis Anchundia
+    'COMILLASIMPLE',
+    'COMILLAS',
+    'DOSPUNTOS',
+    'INTEDOSPUNTOS',
+    'DOBLEAPERSAND',
+    'DOBLEBARRA',
+    'PARENTESISI',
+    'PARENTESISD',
+    'CORCHETEI',
+    'CORCHETED',
+    'LLAVEI',
+    'LLAVED',
+    'COMA',
+    'PUNTOCOMA',
+    'COMENTARIO',
+    #'AZ',
+    #'BACKO',
+    #'BACKX',
+    #'BACKU'
+    #Luis Anchundia
+
 ) + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
@@ -72,6 +104,26 @@ t_DIVASSIGN = r'\\='
 t_RANGEINCLUSIVE = r'\.\.'
 t_RANGEXCLUSIVE = r'\.\.\.'
 #Adriana Riofrio
+
+#Luis Anchundia
+t_COMILLASIMPLE=r'\''
+t_COMILLAS=r'\"'
+t_DOSPUNTOS=';'
+t_INTEDOSPUNTOS='\?:'
+t_DOBLEAPERSAND='&&'
+t_DOBLEBARRA='\|\|'
+t_PARENTESISI='\('
+t_PARENTESISD='\)'
+t_CORCHETEI='\['
+t_CORCHETED='\]'
+t_LLAVEI='\{'
+t_LLAVED='\}'
+t_COMA=','
+t_PUNTOCOMA=';'
+t_COMENTARIO=r'\#.*'
+#Luis Anchundia
+
+
 
 #Adriana Riofrio
 def t_VAR(t):
@@ -117,6 +169,29 @@ def t_backslash(t):
     t.type = '\\'
     return t
 #Adriana Riofrio
+
+#Luis Anchundia
+#def t_AZ(t):
+#   r"'\A\.\.\.\Z'"
+#    t.type = "\A...\Z"
+#    return t
+
+#def t_BACKO(t):
+#    r"'\o'"
+#    t.type = '\o'
+#    return t
+
+#def t_BACKU(t):
+#    r"'\u'"
+#    t.type = '\\u'
+#    return t
+
+#def t_BACKX(t):
+#    r"'\x'"
+#    t.type = '\\x'
+#    return t
+#Luis Anchundia
+
 
 # Error handling rule
 def t_error(t):
