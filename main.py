@@ -6,6 +6,7 @@ import ply.lex as lex
 reserved = {
     #Xavier Garcia
     'puts': 'PUTS',
+    'gets': 'GETS',
     'print': 'PRINT',
     'BEGIN': 'BEGIN_M',
     'END': 'END_M',
@@ -103,7 +104,7 @@ tokens = (
 
 # Regular expression rules for simple tokens
 #Xavier Garcia
-t_NOT = r'\!'
+t_EXCLAMATION = r'\!'
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_WAVE = r'~'
@@ -160,7 +161,7 @@ t_COMMENT=r'\#.*'
 
 #Adriana Riofrio
 def t_VAR(t):
-    r'(@{0,2}|$)[a-z_][a-zA-Z_0-9]*'
+    r'(@{0,2}|\$)[a-z_][a-zA-Z_0-9]*'
     t.type = reserved.get(t.value, 'VAR')  # Check for reserved words
     return t
 
@@ -187,32 +188,32 @@ def t_newline(t):
 
 #Xavier Garcia
 def t_ALERT(t):
-    r'"\w*\a\w*"'
+    r'"\w*\\a\w*"'
     t.value = r'\a'
     return t
 
 
 def t_BACKSPACE(t):
-    r'"\w*\b\w*"'
+    r'"\w*\\b\w*"'
     t.value = r'\ b'
     print(t.value)
     return t
 
 
 def t_FORMFEED(t):
-    r'"\w*\f\w*"'
+    r'"\w*\\f\w*"'
     t.value = r'\f'
     return t
 
 
 def t_NEWLINE(t):
-    r'"\w*\n\w*"'
+    r'"\w*\\n\w*"'
     t.value = r'\n'
     return t
 
 
 def t_CARRIAGERETURN(t):
-    r'"\w*\r\w*"'
+    r'"\w*\\r\w*"'
     t.value = r'\r'
     return t
 #Xavier Garcia
@@ -239,26 +240,30 @@ def t_backslash(t):
     return t
 #Adriana Riofrio
 
+
 #Luis Anchundia
-#def t_AZ(t):
-#   r"'\A\.\.\.\Z'"
-#    t.type = "\A...\Z"
-#    return t
+def t_AZ(t):
+    r"'\A\.\.\.\Z'"
+    t.type = "\A...\Z"
+    return t
 
-#def t_BACKO(t):
-#    r'"\w*\o\w*"'
-#    t.value = r'\o'
-#    return t
 
-#def t_BACKU(t):
-#    r'"\w*\u\w*"'
-#    t.value = r'\u'
-#    return t
+def t_BACKO(t):
+    r'"\w*\\o\w*"'
+    t.value = r'\o'
+    return t
 
-#def t_BACKX(t):
-#    r'"\w*\x\w*"'
-#    t.value = r'\x'
-#    return t
+
+def t_BACKU(t):
+    r'"\w*\\u\w*"'
+    t.value = r'\u'
+    return t
+
+
+def t_BACKX(t):
+    r'"\w*\\x\w*"'
+    t.value = r'\x'
+    return t
 #Luis Anchundia
 
 
@@ -278,7 +283,7 @@ def getTokens(lexer):
 
 # Build the lexer
 lexer = lex.lex()
-lineas = ["\"hola\adios\"", "{}<< + 3 - 4 = @@variable ", ""]
+lineas = ["{}<< + 3 - 4 = @@variable gets", ""]
 cont = 0
 linea = lineas[cont]
 while linea != "":
