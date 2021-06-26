@@ -14,7 +14,7 @@ reserved = {
     'def': 'DEF',
     #Xavier Garcia
 
-    #Adriana R
+    #Adriana Riofrio
     'if': 'IF',
     'else': 'ELSE',
     'else if': "ELSEIF",
@@ -22,7 +22,10 @@ reserved = {
     'false': 'FALSE',
     'nil': 'NIL',
     'for': 'FOR',
-    #Adriana R
+    'include': 'INCLUDE',
+    'delete': 'DELETE',
+    'keys': 'KEYS',
+    #Adriana Riofrio
 
     #Luis Anchundia
     'in': 'IN',
@@ -55,9 +58,11 @@ tokens = (
     'DOUBLEEQUAL',
     'TRIPLEEQUAL',
     'ALERT',
+
     #Xavier Garcia
 
     #Adriana Riofrio
+    'FLOAT',
     'DOT',
     'NOTEQUAL',
     'GREATERTHAN',
@@ -76,6 +81,10 @@ tokens = (
     'RANGEXCLUSIVE',
     'CONSTANT',
     'VAR',
+    'LOCALVAR',
+    'STRING',
+    'QUESTIONMARK',
+    'TWOPOINTS',
     #Adriana Riofrio
 
     #Luis Anchundia
@@ -122,6 +131,8 @@ t_TRIPLEEQUAL = r'==='
 #Xavier Garcia
 
 #Adriana Riofrio
+t_TWOPOINTS = r':'
+t_QUESTIONMARK = r'\?'
 t_DOT = r'\.'
 t_NOTEQUAL = r'!='
 t_GREATERTHAN = r'>'
@@ -161,15 +172,31 @@ t_COMMENT=r'\#.*'
 
 #Adriana Riofrio
 def t_VAR(t):
-    r'(@{0,2}|\$)[a-z_][a-zA-Z_0-9]*'
+    r'(@{1,2}|\$)[a-zA-Z_0-9]*'
     t.type = reserved.get(t.value, 'VAR')  # Check for reserved words
     return t
 
+def t_LOCALVAR(t):
+    r'[a-z_][a-zA-Z_0-9]*'
+    t.type = reserved.get(t.value, 'LOCALVAR')  # Check for reserved words
+    return t
 
 def t_CONSTANT(t):
     r'[A-Z]+'
     t.type = reserved.get(t.value, 'CONSTANT')
     return t
+
+def t_FLOAT(t):
+    r'\d+\.\d+'
+    t.value = float(t.value)
+    return t
+
+def t_STRING(t):
+    r'(".*"|\'.*\')'
+    t.type = reserved.get(t.value, 'STRING')
+    return t
+
+
 #Adriana Riofrio
 
 
@@ -224,6 +251,7 @@ def t_CARRIAGERETURN(t):
 t_ignore = ' \t\v'
 
 literals = ["\'", '\"','\\']
+
 def t_singlequote(t):
     r"'\\''"
     t.type = "\'"
@@ -281,9 +309,9 @@ def getTokens(lexer):
         print(tok)
 
 
-# Build the lexer
+ # Build the lexer
 lexer = lex.lex()
-lineas = ["{}<< + 3 - 4 = @@variable gets", ""]
+lineas = ["{}<< + 3 - 4 = @@variable gets 'dsd4324' : ? true TRUE\n",'"dshdajshdwu909,."',""]
 cont = 0
 linea = lineas[cont]
 while linea != "":
@@ -291,3 +319,4 @@ while linea != "":
     getTokens(lexer)
     cont = cont + 1
     linea = lineas[cont]
+print("Succesfull")
