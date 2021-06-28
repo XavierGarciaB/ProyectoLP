@@ -102,7 +102,8 @@ tokens = (
     'RCURLYBRACKET',
     'COMMA',
     'SEMICOLON',
-    'COMMENT'
+    'COMMENT',
+    'BOOLEAN'
     #'AZ',
     #'BACKO',
     #'BACKX',
@@ -166,7 +167,6 @@ t_LCURLYBRACKET='\{'
 t_RCURLYBRACKET='\}'
 t_COMMA=','
 t_SEMICOLON=';'
-t_COMMENT=r'\#.*'
 #Luis Anchundia
 
 
@@ -292,6 +292,15 @@ def t_BACKX(t):
     r'"\w*\\x\w*"'
     t.value = r'\x'
     return t
+
+def t_COMMENT(t):
+    r'\#.*'
+    pass
+
+def t_BOOLEAN(t):
+    r'(true|false)'
+    t.type = reserved.get(t.value, 'BOOLEAN')
+    return t
 #Luis Anchundia
 
 
@@ -311,7 +320,7 @@ def getTokens(lexer):
 
  # Build the lexer
 lexer = lex.lex()
-lineas = ["{}<< + 3 - 4 = @@variable gets 'dsd4324' : ? true TRUE\n",'"dshdajshdwu909,."',""]
+lineas = ["{}<< + 3 - 4 = @@variable gets 'dsd4324' : ? ack true TRUE\n",'"dshdajshdwu909,."',""]
 cont = 0
 linea = lineas[cont]
 while linea != "":
