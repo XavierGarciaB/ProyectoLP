@@ -12,6 +12,10 @@ reserved = {
     'END': 'END_M',
     'begin': 'BEGIN',
     'def': 'DEF',
+    'unless': 'UNLESS',
+    'set': 'SET',
+    'add': 'ADD',
+    'clear': 'CLEAR',
     #Xavier Garcia
 
     #Adriana Riofrio
@@ -114,6 +118,7 @@ tokens = (
 
 # Regular expression rules for simple tokens
 #Xavier Garcia
+t_SET = r'Set'
 t_EXCLAMATION = r'\!'
 t_PLUS = r'\+'
 t_MINUS = r'-'
@@ -135,7 +140,7 @@ t_TRIPLEEQUAL = r'==='
 t_TWOPOINTS = r':'
 t_QUESTIONMARK = r'\?'
 t_DOT = r'\.'
-t_NOTEQUAL = r'!='
+t_NOTEQUAL = r'\!='
 t_GREATERTHAN = r'>'
 t_LESSTHAN = r'<'
 t_EQUAL = r'='
@@ -320,7 +325,7 @@ def getTokens(lexer):
 
  # Build the lexer
 lexer = lex.lex()
-lineas = ["{}<< + 3 - 4 = @@variable gets 'dsd4324' : ? ack true TRUE\n",'"dshdajshdwu909,."',""]
+lineas = ["x=set[y,z]", ""]
 cont = 0
 linea = lineas[cont]
 while linea != "":

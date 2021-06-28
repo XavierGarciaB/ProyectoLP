@@ -8,7 +8,10 @@ def p_inicio(p):
             | funcion
             | if
             | array
-            | accederarray'''
+            | accederarray
+            | unless
+            | set
+            | operacionSet'''
 
 def p_funcion(p):
     '''funcion : DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo END
@@ -51,7 +54,8 @@ def p_datos(p):
               | STRING '''
 
 def p_estructuras(p):
-    'estructuras : hash'
+    '''estructuras : hash
+                    | set'''
 
 def p_cuerpo(p):
     '''cuerpo : declaracion
@@ -82,12 +86,15 @@ def p_rango(p):
               | NUMBER RANGEXCLUSIVE NUMBER'''
 
 
-def p_impresion(p):
+def p_impresion_puts(p):
     '''impresion : PUTS datos
-                 | PRINT datos
                  | PUTS LOCALVAR
+                 | PUTS masopciones'''
+
+
+def p_impresion_print(p):
+    '''impresion : PRINT datos
                  | PRINT LOCALVAR
-                 | PUTS masopciones
                  | PRINT masopciones'''
 #Adriana Riofrio
 
@@ -107,7 +114,7 @@ def p_operadores(p):
     '''operadores : DOUBLEEQUAL
                  | TRIPLEEQUAL
                  | GREATERTHAN
-                 | EXCLAMATION EQUAL
+                 | NOTEQUAL
                  | LESSTHAN
                  | GREQUAL
                  | LEQUAL'''
@@ -122,6 +129,58 @@ def p_accederarray(p):
     'accederarray : tiposvariables LBRACKET NUMBER RBRACKET'
 
 #Luis Anchundia
+
+
+#Xavier Garcia
+def p_unless(p):
+    '''unless : UNLESS condiciones cuerpo ELSE cuerpo END'''
+
+
+def p_condiciones_var(p):
+    '''condiciones : VAR operadores VAR'''
+
+
+def p_condiciones_datos(p):
+    '''condiciones : datos operadores datos'''
+
+
+def p_condiciones_mix(p):
+    '''condiciones : VAR operadores datos
+                   | datos operadores VAR'''
+
+
+def p_set(p):
+    '''set : SET LBRACKET  elementoSet RBRACKET'''
+
+
+def p_elementoSet(p):
+    '''elementoSet :
+                    | datos
+                    | tiposvariables
+                    | datos otroElemento
+                    | tiposvariables otroElemento'''
+
+
+def p_otroElemento(p):
+    '''otroElemento :
+                | COMMA elementoSet otroElemento'''
+
+
+def p_operacionSet_agregar(p):
+    '''operacionSet : set DOT ADD LPARENTHESES datos RPARENTHESES
+                    | set DOT ADD LPARENTHESES tiposvariables RPARENTHESES'''
+
+
+def p_operacionSet_limpiar(p):
+    '''operacionSet : set DOT CLEAR'''
+
+
+def p_operacionSet_eliminar(p):
+    '''operacionSet : set DOT DELETE LPARENTHESES datos RPARENTHESES
+                    | set DOT DELETE LPARENTHESES tiposvariables RPARENTHESES'''
+#Xavier Garcia
+
+
 # Error rule for syntax errors
 def p_error(p):
     if p:
