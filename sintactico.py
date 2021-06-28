@@ -5,7 +5,10 @@ def p_inicio(p):
     '''inicio : declaracion
             | loop
             | impresion
-            | funcion '''
+            | funcion
+            | if
+            | array
+            | accederarray'''
 
 def p_funcion(p):
     '''funcion : DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo END
@@ -88,7 +91,37 @@ def p_impresion(p):
                  | PRINT masopciones'''
 #Adriana Riofrio
 
+#Luis Anchundia
+def p_array(p):
+    '''array : tiposvariables EQUAL LBRACKET datosarray RBRACKET
+                | tiposvariables EQUAL LBRACKET RBRACKET'''
 
+def p_if(p):
+    '''if : IF datosvarios operadores datosvarios cuerpo END
+            | IF datosvarios operadores datosvarios cuerpo else '''
+
+def p_else(p):
+    'else : ELSE cuerpo END'
+
+def p_operadores(p):
+    '''operadores : DOUBLEEQUAL
+                 | TRIPLEEQUAL
+                 | GREATERTHAN
+                 | EXCLAMATION EQUAL
+                 | LESSTHAN
+                 | GREQUAL
+                 | LEQUAL'''
+def p_datosvarios(p):
+    '''datosvarios : datos
+                | tiposvariables'''
+def p_datosarray(p):
+    '''datosarray : datosvarios
+                    | datosarray COMMA datosvarios'''
+
+def p_accederarray(p):
+    'accederarray : tiposvariables LBRACKET NUMBER RBRACKET'
+
+#Luis Anchundia
 # Error rule for syntax errors
 def p_error(p):
     if p:

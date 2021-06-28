@@ -7,6 +7,7 @@ Unused terminals:
     BARRA
     BEGIN
     BEGIN_M
+    BOOLEAN
     CIRCUMFLEX
     COLON
     COMBCOMP
@@ -15,21 +16,13 @@ Unused terminals:
     DIVIDE
     DOBLEQUOTE
     DOUBLEAMPERSAND
-    DOUBLEEQUAL
     DOUBLELESSTHAN
     DOUBLEPIPE
-    ELSE
     ELSEIF
     END_M
-    EXCLAMATION
     EXPASSIGN
     FALSE
     GETS
-    GREQUAL
-    IF
-    LBRACKET
-    LEQUAL
-    LESSTHAN
     MINASSIGN
     MINUS
     MODASSIGN
@@ -41,11 +34,9 @@ Unused terminals:
     PLUS
     PLUSASSIGN
     QUESTIONMARKPERIOD
-    RBRACKET
     SEMICOLON
     SINGLEQUOTE
     TIMESASSIGN
-    TRIPLEEQUAL
     TRUE
     TWOGREATERTHAN
     UNTIL
@@ -58,50 +49,70 @@ Rule 1     inicio -> declaracion
 Rule 2     inicio -> loop
 Rule 3     inicio -> impresion
 Rule 4     inicio -> funcion
-Rule 5     funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo END
-Rule 6     funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo retornar END
-Rule 7     argumentos -> variosargumentos
-Rule 8     argumentos -> MULTIPLY LOCALVAR
-Rule 9     argumentos -> TWOSTARS LOCALVAR
-Rule 10    argumentos -> LOCALVAR EQUAL LCURLYBRACKET RCURLYBRACKET
-Rule 11    argumentos -> LOCALVAR TWOPOINTS datos
-Rule 12    variosargumentos -> LOCALVAR
-Rule 13    variosargumentos -> LOCALVAR EQUAL datos
-Rule 14    variosargumentos -> LOCALVAR masargumentos
-Rule 15    variosargumentos -> LOCALVAR EQUAL datos masargumentos
-Rule 16    masargumentos -> COMMA variosargumentos
-Rule 17    retornar -> RETURN LOCALVAR
-Rule 18    retornar -> RETURN datos
-Rule 19    loop -> FOR LOCALVAR IN rango cuerpo END
-Rule 20    declaracion -> tiposvariables EQUAL datos
-Rule 21    declaracion -> tiposvariables EQUAL estructuras
-Rule 22    tiposvariables -> VAR
-Rule 23    tiposvariables -> LOCALVAR
-Rule 24    tiposvariables -> CONSTANT
-Rule 25    datos -> NUMBER
-Rule 26    datos -> FLOAT
-Rule 27    datos -> STRING
-Rule 28    estructuras -> hash
-Rule 29    cuerpo -> declaracion
-Rule 30    cuerpo -> loop
-Rule 31    cuerpo -> impresion
-Rule 32    hash -> LCURLYBRACKET elementoHash RCURLYBRACKET masopciones
-Rule 33    elementoHash -> datos EQUAL GREATERTHAN datos maselementos
-Rule 34    maselementos -> <empty>
-Rule 35    maselementos -> COMMA elementoHash maselementos
-Rule 36    masopciones -> <empty>
-Rule 37    masopciones -> LOCALVAR DOT funcionesHash masopciones
-Rule 38    funcionesHash -> INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES
-Rule 39    funcionesHash -> DELETE LPARENTHESES datos RPARENTHESES
-Rule 40    funcionesHash -> KEYS
-Rule 41    rango -> NUMBER RANGEINCLUSIVE NUMBER
-Rule 42    rango -> NUMBER RANGEXCLUSIVE NUMBER
-Rule 43    impresion -> PUTS datos
-Rule 44    impresion -> PRINT datos
-Rule 45    impresion -> PUTS LOCALVAR
-Rule 46    impresion -> PRINT LOCALVAR
-Rule 47    impresion -> PUTS masopciones
-Rule 48    impresion -> PRINT masopciones
+Rule 5     inicio -> if
+Rule 6     inicio -> array
+Rule 7     inicio -> accederarray
+Rule 8     funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo END
+Rule 9     funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo retornar END
+Rule 10    argumentos -> variosargumentos
+Rule 11    argumentos -> MULTIPLY LOCALVAR
+Rule 12    argumentos -> TWOSTARS LOCALVAR
+Rule 13    argumentos -> LOCALVAR EQUAL LCURLYBRACKET RCURLYBRACKET
+Rule 14    argumentos -> LOCALVAR TWOPOINTS datos
+Rule 15    variosargumentos -> LOCALVAR
+Rule 16    variosargumentos -> LOCALVAR EQUAL datos
+Rule 17    variosargumentos -> LOCALVAR masargumentos
+Rule 18    variosargumentos -> LOCALVAR EQUAL datos masargumentos
+Rule 19    masargumentos -> COMMA variosargumentos
+Rule 20    retornar -> RETURN LOCALVAR
+Rule 21    retornar -> RETURN datos
+Rule 22    loop -> FOR LOCALVAR IN rango cuerpo END
+Rule 23    declaracion -> tiposvariables EQUAL datos
+Rule 24    declaracion -> tiposvariables EQUAL estructuras
+Rule 25    tiposvariables -> VAR
+Rule 26    tiposvariables -> LOCALVAR
+Rule 27    tiposvariables -> CONSTANT
+Rule 28    datos -> NUMBER
+Rule 29    datos -> FLOAT
+Rule 30    datos -> STRING
+Rule 31    estructuras -> hash
+Rule 32    cuerpo -> declaracion
+Rule 33    cuerpo -> loop
+Rule 34    cuerpo -> impresion
+Rule 35    hash -> LCURLYBRACKET elementoHash RCURLYBRACKET masopciones
+Rule 36    elementoHash -> datos EQUAL GREATERTHAN datos maselementos
+Rule 37    maselementos -> <empty>
+Rule 38    maselementos -> COMMA elementoHash maselementos
+Rule 39    masopciones -> <empty>
+Rule 40    masopciones -> LOCALVAR DOT funcionesHash masopciones
+Rule 41    funcionesHash -> INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES
+Rule 42    funcionesHash -> DELETE LPARENTHESES datos RPARENTHESES
+Rule 43    funcionesHash -> KEYS
+Rule 44    rango -> NUMBER RANGEINCLUSIVE NUMBER
+Rule 45    rango -> NUMBER RANGEXCLUSIVE NUMBER
+Rule 46    impresion -> PUTS datos
+Rule 47    impresion -> PRINT datos
+Rule 48    impresion -> PUTS LOCALVAR
+Rule 49    impresion -> PRINT LOCALVAR
+Rule 50    impresion -> PUTS masopciones
+Rule 51    impresion -> PRINT masopciones
+Rule 52    array -> tiposvariables EQUAL LBRACKET datosarray RBRACKET
+Rule 53    array -> tiposvariables EQUAL LBRACKET RBRACKET
+Rule 54    if -> IF datosvarios operadores datosvarios cuerpo END
+Rule 55    if -> IF datosvarios operadores datosvarios cuerpo else
+Rule 56    else -> ELSE cuerpo END
+Rule 57    operadores -> DOUBLEEQUAL
+Rule 58    operadores -> TRIPLEEQUAL
+Rule 59    operadores -> GREATERTHAN
+Rule 60    operadores -> EXCLAMATION EQUAL
+Rule 61    operadores -> LESSTHAN
+Rule 62    operadores -> GREQUAL
+Rule 63    operadores -> LEQUAL
+Rule 64    datosvarios -> datos
+Rule 65    datosvarios -> tiposvariables
+Rule 66    datosarray -> datosvarios
+Rule 67    datosarray -> datosarray COMMA datosvarios
+Rule 68    accederarray -> tiposvariables LBRACKET NUMBER RBRACKET
 
 Terminals, with rules where they appear
 
@@ -110,102 +121,110 @@ AMPERSAND            :
 BARRA                : 
 BEGIN                : 
 BEGIN_M              : 
+BOOLEAN              : 
 CIRCUMFLEX           : 
 COLON                : 
 COMBCOMP             : 
-COMMA                : 16 35
+COMMA                : 19 38 67
 COMMENT              : 
-CONSTANT             : 24
-DEF                  : 5 6
-DELETE               : 39
+CONSTANT             : 27
+DEF                  : 8 9
+DELETE               : 42
 DIVASSIGN            : 
 DIVIDE               : 
 DOBLEQUOTE           : 
-DOT                  : 37
+DOT                  : 40
 DOUBLEAMPERSAND      : 
-DOUBLEEQUAL          : 
+DOUBLEEQUAL          : 57
 DOUBLELESSTHAN       : 
 DOUBLEPIPE           : 
-ELSE                 : 
+ELSE                 : 56
 ELSEIF               : 
-END                  : 5 6 19
+END                  : 8 9 22 54 56
 END_M                : 
-EQUAL                : 10 13 15 20 21 33
-EXCLAMATION          : 
+EQUAL                : 13 16 18 23 24 36 52 53 60
+EXCLAMATION          : 60
 EXPASSIGN            : 
 FALSE                : 
-FLOAT                : 26
-FOR                  : 19
+FLOAT                : 29
+FOR                  : 22
 GETS                 : 
-GREATERTHAN          : 33
-GREQUAL              : 
-IF                   : 
-IN                   : 19
-INCLUDE              : 38
-KEYS                 : 40
-LBRACKET             : 
-LCURLYBRACKET        : 10 32
-LEQUAL               : 
-LESSTHAN             : 
-LOCALVAR             : 5 6 8 9 10 11 12 13 14 15 17 19 23 37 45 46
-LPARENTHESES         : 5 6 38 39
+GREATERTHAN          : 36 59
+GREQUAL              : 62
+IF                   : 54 55
+IN                   : 22
+INCLUDE              : 41
+KEYS                 : 43
+LBRACKET             : 52 53 68
+LCURLYBRACKET        : 13 35
+LEQUAL               : 63
+LESSTHAN             : 61
+LOCALVAR             : 8 9 11 12 13 14 15 16 17 18 20 22 26 40 48 49
+LPARENTHESES         : 8 9 41 42
 MINASSIGN            : 
 MINUS                : 
 MODASSIGN            : 
-MULTIPLY             : 8
+MULTIPLY             : 11
 NIL                  : 
 NOT                  : 
 NOTEQUAL             : 
-NUMBER               : 25 41 41 42 42
+NUMBER               : 28 44 44 45 45 68
 OR                   : 
 PERCENTAGE           : 
 PLUS                 : 
 PLUSASSIGN           : 
-PRINT                : 44 46 48
-PUTS                 : 43 45 47
-QUESTIONMARK         : 38
+PRINT                : 47 49 51
+PUTS                 : 46 48 50
+QUESTIONMARK         : 41
 QUESTIONMARKPERIOD   : 
-RANGEINCLUSIVE       : 41
-RANGEXCLUSIVE        : 42
-RBRACKET             : 
-RCURLYBRACKET        : 10 32
-RETURN               : 17 18
-RPARENTHESES         : 5 6 38 39
+RANGEINCLUSIVE       : 44
+RANGEXCLUSIVE        : 45
+RBRACKET             : 52 53 68
+RCURLYBRACKET        : 13 35
+RETURN               : 20 21
+RPARENTHESES         : 8 9 41 42
 SEMICOLON            : 
 SINGLEQUOTE          : 
-STRING               : 27
+STRING               : 30
 TIMESASSIGN          : 
-TRIPLEEQUAL          : 
+TRIPLEEQUAL          : 58
 TRUE                 : 
 TWOGREATERTHAN       : 
-TWOPOINTS            : 11
-TWOSTARS             : 9
+TWOPOINTS            : 14
+TWOSTARS             : 12
 UNTIL                : 
-VAR                  : 22
+VAR                  : 25
 WAVE                 : 
 error                : 
 
 Nonterminals, with rules where they appear
 
-argumentos           : 5 6
-cuerpo               : 5 6 19
-datos                : 11 13 15 18 20 33 33 38 39 43 44
-declaracion          : 1 29
-elementoHash         : 32 35
-estructuras          : 21
+accederarray         : 7
+argumentos           : 8 9
+array                : 6
+cuerpo               : 8 9 22 54 55 56
+datos                : 14 16 18 21 23 36 36 41 42 46 47 64
+datosarray           : 52 67
+datosvarios          : 54 54 55 55 66 67
+declaracion          : 1 32
+elementoHash         : 35 38
+else                 : 55
+estructuras          : 24
 funcion              : 4
-funcionesHash        : 37
-hash                 : 28
-impresion            : 3 31
+funcionesHash        : 40
+hash                 : 31
+if                   : 5
+impresion            : 3 34
 inicio               : 0
-loop                 : 2 30
-masargumentos        : 14 15
-maselementos         : 33 35
-masopciones          : 32 37 47 48
-rango                : 19
-retornar             : 6
-tiposvariables       : 20 21
-variosargumentos     : 7 16
+loop                 : 2 33
+masargumentos        : 17 18
+maselementos         : 36 38
+masopciones          : 35 40 50 51
+operadores           : 54 55
+rango                : 22
+retornar             : 9
+tiposvariables       : 23 24 52 53 65 68
+variosargumentos     : 10 19
 
 Parsing method: LALR
 
@@ -216,35 +235,47 @@ state 0
     (2) inicio -> . loop
     (3) inicio -> . impresion
     (4) inicio -> . funcion
-    (20) declaracion -> . tiposvariables EQUAL datos
-    (21) declaracion -> . tiposvariables EQUAL estructuras
-    (19) loop -> . FOR LOCALVAR IN rango cuerpo END
-    (43) impresion -> . PUTS datos
-    (44) impresion -> . PRINT datos
-    (45) impresion -> . PUTS LOCALVAR
-    (46) impresion -> . PRINT LOCALVAR
-    (47) impresion -> . PUTS masopciones
-    (48) impresion -> . PRINT masopciones
-    (5) funcion -> . DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo END
-    (6) funcion -> . DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo retornar END
-    (22) tiposvariables -> . VAR
-    (23) tiposvariables -> . LOCALVAR
-    (24) tiposvariables -> . CONSTANT
+    (5) inicio -> . if
+    (6) inicio -> . array
+    (7) inicio -> . accederarray
+    (23) declaracion -> . tiposvariables EQUAL datos
+    (24) declaracion -> . tiposvariables EQUAL estructuras
+    (22) loop -> . FOR LOCALVAR IN rango cuerpo END
+    (46) impresion -> . PUTS datos
+    (47) impresion -> . PRINT datos
+    (48) impresion -> . PUTS LOCALVAR
+    (49) impresion -> . PRINT LOCALVAR
+    (50) impresion -> . PUTS masopciones
+    (51) impresion -> . PRINT masopciones
+    (8) funcion -> . DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo END
+    (9) funcion -> . DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo retornar END
+    (54) if -> . IF datosvarios operadores datosvarios cuerpo END
+    (55) if -> . IF datosvarios operadores datosvarios cuerpo else
+    (52) array -> . tiposvariables EQUAL LBRACKET datosarray RBRACKET
+    (53) array -> . tiposvariables EQUAL LBRACKET RBRACKET
+    (68) accederarray -> . tiposvariables LBRACKET NUMBER RBRACKET
+    (25) tiposvariables -> . VAR
+    (26) tiposvariables -> . LOCALVAR
+    (27) tiposvariables -> . CONSTANT
 
-    FOR             shift and go to state 7
-    PUTS            shift and go to state 9
-    PRINT           shift and go to state 10
-    DEF             shift and go to state 11
-    VAR             shift and go to state 12
-    LOCALVAR        shift and go to state 8
-    CONSTANT        shift and go to state 13
+    FOR             shift and go to state 10
+    PUTS            shift and go to state 12
+    PRINT           shift and go to state 13
+    DEF             shift and go to state 14
+    IF              shift and go to state 15
+    VAR             shift and go to state 16
+    LOCALVAR        shift and go to state 11
+    CONSTANT        shift and go to state 17
 
     inicio                         shift and go to state 1
     declaracion                    shift and go to state 2
     loop                           shift and go to state 3
     impresion                      shift and go to state 4
     funcion                        shift and go to state 5
-    tiposvariables                 shift and go to state 6
+    if                             shift and go to state 6
+    array                          shift and go to state 7
+    accederarray                   shift and go to state 8
+    tiposvariables                 shift and go to state 9
 
 state 1
 
@@ -282,941 +313,1529 @@ state 5
 
 state 6
 
-    (20) declaracion -> tiposvariables . EQUAL datos
-    (21) declaracion -> tiposvariables . EQUAL estructuras
+    (5) inicio -> if .
 
-    EQUAL           shift and go to state 14
+    $end            reduce using rule 5 (inicio -> if .)
 
 
 state 7
 
-    (19) loop -> FOR . LOCALVAR IN rango cuerpo END
+    (6) inicio -> array .
 
-    LOCALVAR        shift and go to state 15
+    $end            reduce using rule 6 (inicio -> array .)
 
 
 state 8
 
-    (23) tiposvariables -> LOCALVAR .
+    (7) inicio -> accederarray .
 
-    EQUAL           reduce using rule 23 (tiposvariables -> LOCALVAR .)
+    $end            reduce using rule 7 (inicio -> accederarray .)
 
 
 state 9
 
-    (43) impresion -> PUTS . datos
-    (45) impresion -> PUTS . LOCALVAR
-    (47) impresion -> PUTS . masopciones
-    (25) datos -> . NUMBER
-    (26) datos -> . FLOAT
-    (27) datos -> . STRING
-    (36) masopciones -> .
-    (37) masopciones -> . LOCALVAR DOT funcionesHash masopciones
+    (23) declaracion -> tiposvariables . EQUAL datos
+    (24) declaracion -> tiposvariables . EQUAL estructuras
+    (52) array -> tiposvariables . EQUAL LBRACKET datosarray RBRACKET
+    (53) array -> tiposvariables . EQUAL LBRACKET RBRACKET
+    (68) accederarray -> tiposvariables . LBRACKET NUMBER RBRACKET
 
-    LOCALVAR        shift and go to state 17
-    NUMBER          shift and go to state 19
-    FLOAT           shift and go to state 20
-    STRING          shift and go to state 21
-    $end            reduce using rule 36 (masopciones -> .)
-    END             reduce using rule 36 (masopciones -> .)
-    RETURN          reduce using rule 36 (masopciones -> .)
+    EQUAL           shift and go to state 18
+    LBRACKET        shift and go to state 19
 
-    datos                          shift and go to state 16
-    masopciones                    shift and go to state 18
 
 state 10
 
-    (44) impresion -> PRINT . datos
-    (46) impresion -> PRINT . LOCALVAR
-    (48) impresion -> PRINT . masopciones
-    (25) datos -> . NUMBER
-    (26) datos -> . FLOAT
-    (27) datos -> . STRING
-    (36) masopciones -> .
-    (37) masopciones -> . LOCALVAR DOT funcionesHash masopciones
+    (22) loop -> FOR . LOCALVAR IN rango cuerpo END
 
-    LOCALVAR        shift and go to state 23
-    NUMBER          shift and go to state 19
-    FLOAT           shift and go to state 20
-    STRING          shift and go to state 21
-    $end            reduce using rule 36 (masopciones -> .)
-    END             reduce using rule 36 (masopciones -> .)
-    RETURN          reduce using rule 36 (masopciones -> .)
+    LOCALVAR        shift and go to state 20
 
-    datos                          shift and go to state 22
-    masopciones                    shift and go to state 24
 
 state 11
 
-    (5) funcion -> DEF . LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo END
-    (6) funcion -> DEF . LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo retornar END
+    (26) tiposvariables -> LOCALVAR .
 
-    LOCALVAR        shift and go to state 25
+    EQUAL           reduce using rule 26 (tiposvariables -> LOCALVAR .)
+    LBRACKET        reduce using rule 26 (tiposvariables -> LOCALVAR .)
+    DOUBLEEQUAL     reduce using rule 26 (tiposvariables -> LOCALVAR .)
+    TRIPLEEQUAL     reduce using rule 26 (tiposvariables -> LOCALVAR .)
+    GREATERTHAN     reduce using rule 26 (tiposvariables -> LOCALVAR .)
+    EXCLAMATION     reduce using rule 26 (tiposvariables -> LOCALVAR .)
+    LESSTHAN        reduce using rule 26 (tiposvariables -> LOCALVAR .)
+    GREQUAL         reduce using rule 26 (tiposvariables -> LOCALVAR .)
+    LEQUAL          reduce using rule 26 (tiposvariables -> LOCALVAR .)
+    RBRACKET        reduce using rule 26 (tiposvariables -> LOCALVAR .)
+    COMMA           reduce using rule 26 (tiposvariables -> LOCALVAR .)
+    FOR             reduce using rule 26 (tiposvariables -> LOCALVAR .)
+    PUTS            reduce using rule 26 (tiposvariables -> LOCALVAR .)
+    PRINT           reduce using rule 26 (tiposvariables -> LOCALVAR .)
+    VAR             reduce using rule 26 (tiposvariables -> LOCALVAR .)
+    LOCALVAR        reduce using rule 26 (tiposvariables -> LOCALVAR .)
+    CONSTANT        reduce using rule 26 (tiposvariables -> LOCALVAR .)
 
 
 state 12
 
-    (22) tiposvariables -> VAR .
+    (46) impresion -> PUTS . datos
+    (48) impresion -> PUTS . LOCALVAR
+    (50) impresion -> PUTS . masopciones
+    (28) datos -> . NUMBER
+    (29) datos -> . FLOAT
+    (30) datos -> . STRING
+    (39) masopciones -> .
+    (40) masopciones -> . LOCALVAR DOT funcionesHash masopciones
 
-    EQUAL           reduce using rule 22 (tiposvariables -> VAR .)
+    LOCALVAR        shift and go to state 22
+    NUMBER          shift and go to state 24
+    FLOAT           shift and go to state 25
+    STRING          shift and go to state 26
+    $end            reduce using rule 39 (masopciones -> .)
+    END             reduce using rule 39 (masopciones -> .)
+    ELSE            reduce using rule 39 (masopciones -> .)
+    RETURN          reduce using rule 39 (masopciones -> .)
 
+    datos                          shift and go to state 21
+    masopciones                    shift and go to state 23
 
 state 13
 
-    (24) tiposvariables -> CONSTANT .
+    (47) impresion -> PRINT . datos
+    (49) impresion -> PRINT . LOCALVAR
+    (51) impresion -> PRINT . masopciones
+    (28) datos -> . NUMBER
+    (29) datos -> . FLOAT
+    (30) datos -> . STRING
+    (39) masopciones -> .
+    (40) masopciones -> . LOCALVAR DOT funcionesHash masopciones
 
-    EQUAL           reduce using rule 24 (tiposvariables -> CONSTANT .)
+    LOCALVAR        shift and go to state 28
+    NUMBER          shift and go to state 24
+    FLOAT           shift and go to state 25
+    STRING          shift and go to state 26
+    $end            reduce using rule 39 (masopciones -> .)
+    END             reduce using rule 39 (masopciones -> .)
+    ELSE            reduce using rule 39 (masopciones -> .)
+    RETURN          reduce using rule 39 (masopciones -> .)
 
+    datos                          shift and go to state 27
+    masopciones                    shift and go to state 29
 
 state 14
 
-    (20) declaracion -> tiposvariables EQUAL . datos
-    (21) declaracion -> tiposvariables EQUAL . estructuras
-    (25) datos -> . NUMBER
-    (26) datos -> . FLOAT
-    (27) datos -> . STRING
-    (28) estructuras -> . hash
-    (32) hash -> . LCURLYBRACKET elementoHash RCURLYBRACKET masopciones
+    (8) funcion -> DEF . LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo END
+    (9) funcion -> DEF . LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo retornar END
 
-    NUMBER          shift and go to state 19
-    FLOAT           shift and go to state 20
-    STRING          shift and go to state 21
-    LCURLYBRACKET   shift and go to state 29
+    LOCALVAR        shift and go to state 30
 
-    datos                          shift and go to state 26
-    estructuras                    shift and go to state 27
-    hash                           shift and go to state 28
 
 state 15
 
-    (19) loop -> FOR LOCALVAR . IN rango cuerpo END
+    (54) if -> IF . datosvarios operadores datosvarios cuerpo END
+    (55) if -> IF . datosvarios operadores datosvarios cuerpo else
+    (64) datosvarios -> . datos
+    (65) datosvarios -> . tiposvariables
+    (28) datos -> . NUMBER
+    (29) datos -> . FLOAT
+    (30) datos -> . STRING
+    (25) tiposvariables -> . VAR
+    (26) tiposvariables -> . LOCALVAR
+    (27) tiposvariables -> . CONSTANT
 
-    IN              shift and go to state 30
+    NUMBER          shift and go to state 24
+    FLOAT           shift and go to state 25
+    STRING          shift and go to state 26
+    VAR             shift and go to state 16
+    LOCALVAR        shift and go to state 11
+    CONSTANT        shift and go to state 17
 
+    datosvarios                    shift and go to state 31
+    datos                          shift and go to state 32
+    tiposvariables                 shift and go to state 33
 
 state 16
 
-    (43) impresion -> PUTS datos .
+    (25) tiposvariables -> VAR .
 
-    $end            reduce using rule 43 (impresion -> PUTS datos .)
-    END             reduce using rule 43 (impresion -> PUTS datos .)
-    RETURN          reduce using rule 43 (impresion -> PUTS datos .)
+    EQUAL           reduce using rule 25 (tiposvariables -> VAR .)
+    LBRACKET        reduce using rule 25 (tiposvariables -> VAR .)
+    DOUBLEEQUAL     reduce using rule 25 (tiposvariables -> VAR .)
+    TRIPLEEQUAL     reduce using rule 25 (tiposvariables -> VAR .)
+    GREATERTHAN     reduce using rule 25 (tiposvariables -> VAR .)
+    EXCLAMATION     reduce using rule 25 (tiposvariables -> VAR .)
+    LESSTHAN        reduce using rule 25 (tiposvariables -> VAR .)
+    GREQUAL         reduce using rule 25 (tiposvariables -> VAR .)
+    LEQUAL          reduce using rule 25 (tiposvariables -> VAR .)
+    RBRACKET        reduce using rule 25 (tiposvariables -> VAR .)
+    COMMA           reduce using rule 25 (tiposvariables -> VAR .)
+    FOR             reduce using rule 25 (tiposvariables -> VAR .)
+    PUTS            reduce using rule 25 (tiposvariables -> VAR .)
+    PRINT           reduce using rule 25 (tiposvariables -> VAR .)
+    VAR             reduce using rule 25 (tiposvariables -> VAR .)
+    LOCALVAR        reduce using rule 25 (tiposvariables -> VAR .)
+    CONSTANT        reduce using rule 25 (tiposvariables -> VAR .)
 
 
 state 17
 
-    (45) impresion -> PUTS LOCALVAR .
-    (37) masopciones -> LOCALVAR . DOT funcionesHash masopciones
+    (27) tiposvariables -> CONSTANT .
 
-    $end            reduce using rule 45 (impresion -> PUTS LOCALVAR .)
-    END             reduce using rule 45 (impresion -> PUTS LOCALVAR .)
-    RETURN          reduce using rule 45 (impresion -> PUTS LOCALVAR .)
-    DOT             shift and go to state 31
+    EQUAL           reduce using rule 27 (tiposvariables -> CONSTANT .)
+    LBRACKET        reduce using rule 27 (tiposvariables -> CONSTANT .)
+    DOUBLEEQUAL     reduce using rule 27 (tiposvariables -> CONSTANT .)
+    TRIPLEEQUAL     reduce using rule 27 (tiposvariables -> CONSTANT .)
+    GREATERTHAN     reduce using rule 27 (tiposvariables -> CONSTANT .)
+    EXCLAMATION     reduce using rule 27 (tiposvariables -> CONSTANT .)
+    LESSTHAN        reduce using rule 27 (tiposvariables -> CONSTANT .)
+    GREQUAL         reduce using rule 27 (tiposvariables -> CONSTANT .)
+    LEQUAL          reduce using rule 27 (tiposvariables -> CONSTANT .)
+    RBRACKET        reduce using rule 27 (tiposvariables -> CONSTANT .)
+    COMMA           reduce using rule 27 (tiposvariables -> CONSTANT .)
+    FOR             reduce using rule 27 (tiposvariables -> CONSTANT .)
+    PUTS            reduce using rule 27 (tiposvariables -> CONSTANT .)
+    PRINT           reduce using rule 27 (tiposvariables -> CONSTANT .)
+    VAR             reduce using rule 27 (tiposvariables -> CONSTANT .)
+    LOCALVAR        reduce using rule 27 (tiposvariables -> CONSTANT .)
+    CONSTANT        reduce using rule 27 (tiposvariables -> CONSTANT .)
 
 
 state 18
 
-    (47) impresion -> PUTS masopciones .
+    (23) declaracion -> tiposvariables EQUAL . datos
+    (24) declaracion -> tiposvariables EQUAL . estructuras
+    (52) array -> tiposvariables EQUAL . LBRACKET datosarray RBRACKET
+    (53) array -> tiposvariables EQUAL . LBRACKET RBRACKET
+    (28) datos -> . NUMBER
+    (29) datos -> . FLOAT
+    (30) datos -> . STRING
+    (31) estructuras -> . hash
+    (35) hash -> . LCURLYBRACKET elementoHash RCURLYBRACKET masopciones
 
-    $end            reduce using rule 47 (impresion -> PUTS masopciones .)
-    END             reduce using rule 47 (impresion -> PUTS masopciones .)
-    RETURN          reduce using rule 47 (impresion -> PUTS masopciones .)
+    LBRACKET        shift and go to state 36
+    NUMBER          shift and go to state 24
+    FLOAT           shift and go to state 25
+    STRING          shift and go to state 26
+    LCURLYBRACKET   shift and go to state 38
 
+    datos                          shift and go to state 34
+    estructuras                    shift and go to state 35
+    hash                           shift and go to state 37
 
 state 19
 
-    (25) datos -> NUMBER .
+    (68) accederarray -> tiposvariables LBRACKET . NUMBER RBRACKET
 
-    $end            reduce using rule 25 (datos -> NUMBER .)
-    END             reduce using rule 25 (datos -> NUMBER .)
-    RETURN          reduce using rule 25 (datos -> NUMBER .)
-    EQUAL           reduce using rule 25 (datos -> NUMBER .)
-    RPARENTHESES    reduce using rule 25 (datos -> NUMBER .)
-    COMMA           reduce using rule 25 (datos -> NUMBER .)
-    RCURLYBRACKET   reduce using rule 25 (datos -> NUMBER .)
+    NUMBER          shift and go to state 39
 
 
 state 20
 
-    (26) datos -> FLOAT .
+    (22) loop -> FOR LOCALVAR . IN rango cuerpo END
 
-    $end            reduce using rule 26 (datos -> FLOAT .)
-    END             reduce using rule 26 (datos -> FLOAT .)
-    RETURN          reduce using rule 26 (datos -> FLOAT .)
-    EQUAL           reduce using rule 26 (datos -> FLOAT .)
-    RPARENTHESES    reduce using rule 26 (datos -> FLOAT .)
-    COMMA           reduce using rule 26 (datos -> FLOAT .)
-    RCURLYBRACKET   reduce using rule 26 (datos -> FLOAT .)
+    IN              shift and go to state 40
 
 
 state 21
 
-    (27) datos -> STRING .
+    (46) impresion -> PUTS datos .
 
-    $end            reduce using rule 27 (datos -> STRING .)
-    END             reduce using rule 27 (datos -> STRING .)
-    RETURN          reduce using rule 27 (datos -> STRING .)
-    EQUAL           reduce using rule 27 (datos -> STRING .)
-    RPARENTHESES    reduce using rule 27 (datos -> STRING .)
-    COMMA           reduce using rule 27 (datos -> STRING .)
-    RCURLYBRACKET   reduce using rule 27 (datos -> STRING .)
+    $end            reduce using rule 46 (impresion -> PUTS datos .)
+    END             reduce using rule 46 (impresion -> PUTS datos .)
+    ELSE            reduce using rule 46 (impresion -> PUTS datos .)
+    RETURN          reduce using rule 46 (impresion -> PUTS datos .)
 
 
 state 22
 
-    (44) impresion -> PRINT datos .
+    (48) impresion -> PUTS LOCALVAR .
+    (40) masopciones -> LOCALVAR . DOT funcionesHash masopciones
 
-    $end            reduce using rule 44 (impresion -> PRINT datos .)
-    END             reduce using rule 44 (impresion -> PRINT datos .)
-    RETURN          reduce using rule 44 (impresion -> PRINT datos .)
+    $end            reduce using rule 48 (impresion -> PUTS LOCALVAR .)
+    END             reduce using rule 48 (impresion -> PUTS LOCALVAR .)
+    ELSE            reduce using rule 48 (impresion -> PUTS LOCALVAR .)
+    RETURN          reduce using rule 48 (impresion -> PUTS LOCALVAR .)
+    DOT             shift and go to state 41
 
 
 state 23
 
-    (46) impresion -> PRINT LOCALVAR .
-    (37) masopciones -> LOCALVAR . DOT funcionesHash masopciones
+    (50) impresion -> PUTS masopciones .
 
-    $end            reduce using rule 46 (impresion -> PRINT LOCALVAR .)
-    END             reduce using rule 46 (impresion -> PRINT LOCALVAR .)
-    RETURN          reduce using rule 46 (impresion -> PRINT LOCALVAR .)
-    DOT             shift and go to state 31
+    $end            reduce using rule 50 (impresion -> PUTS masopciones .)
+    END             reduce using rule 50 (impresion -> PUTS masopciones .)
+    ELSE            reduce using rule 50 (impresion -> PUTS masopciones .)
+    RETURN          reduce using rule 50 (impresion -> PUTS masopciones .)
 
 
 state 24
 
-    (48) impresion -> PRINT masopciones .
+    (28) datos -> NUMBER .
 
-    $end            reduce using rule 48 (impresion -> PRINT masopciones .)
-    END             reduce using rule 48 (impresion -> PRINT masopciones .)
-    RETURN          reduce using rule 48 (impresion -> PRINT masopciones .)
+    $end            reduce using rule 28 (datos -> NUMBER .)
+    END             reduce using rule 28 (datos -> NUMBER .)
+    ELSE            reduce using rule 28 (datos -> NUMBER .)
+    RETURN          reduce using rule 28 (datos -> NUMBER .)
+    DOUBLEEQUAL     reduce using rule 28 (datos -> NUMBER .)
+    TRIPLEEQUAL     reduce using rule 28 (datos -> NUMBER .)
+    GREATERTHAN     reduce using rule 28 (datos -> NUMBER .)
+    EXCLAMATION     reduce using rule 28 (datos -> NUMBER .)
+    LESSTHAN        reduce using rule 28 (datos -> NUMBER .)
+    GREQUAL         reduce using rule 28 (datos -> NUMBER .)
+    LEQUAL          reduce using rule 28 (datos -> NUMBER .)
+    RBRACKET        reduce using rule 28 (datos -> NUMBER .)
+    COMMA           reduce using rule 28 (datos -> NUMBER .)
+    EQUAL           reduce using rule 28 (datos -> NUMBER .)
+    FOR             reduce using rule 28 (datos -> NUMBER .)
+    PUTS            reduce using rule 28 (datos -> NUMBER .)
+    PRINT           reduce using rule 28 (datos -> NUMBER .)
+    VAR             reduce using rule 28 (datos -> NUMBER .)
+    LOCALVAR        reduce using rule 28 (datos -> NUMBER .)
+    CONSTANT        reduce using rule 28 (datos -> NUMBER .)
+    RPARENTHESES    reduce using rule 28 (datos -> NUMBER .)
+    RCURLYBRACKET   reduce using rule 28 (datos -> NUMBER .)
 
 
 state 25
 
-    (5) funcion -> DEF LOCALVAR . LPARENTHESES argumentos RPARENTHESES cuerpo END
-    (6) funcion -> DEF LOCALVAR . LPARENTHESES argumentos RPARENTHESES cuerpo retornar END
+    (29) datos -> FLOAT .
 
-    LPARENTHESES    shift and go to state 32
+    $end            reduce using rule 29 (datos -> FLOAT .)
+    END             reduce using rule 29 (datos -> FLOAT .)
+    ELSE            reduce using rule 29 (datos -> FLOAT .)
+    RETURN          reduce using rule 29 (datos -> FLOAT .)
+    DOUBLEEQUAL     reduce using rule 29 (datos -> FLOAT .)
+    TRIPLEEQUAL     reduce using rule 29 (datos -> FLOAT .)
+    GREATERTHAN     reduce using rule 29 (datos -> FLOAT .)
+    EXCLAMATION     reduce using rule 29 (datos -> FLOAT .)
+    LESSTHAN        reduce using rule 29 (datos -> FLOAT .)
+    GREQUAL         reduce using rule 29 (datos -> FLOAT .)
+    LEQUAL          reduce using rule 29 (datos -> FLOAT .)
+    RBRACKET        reduce using rule 29 (datos -> FLOAT .)
+    COMMA           reduce using rule 29 (datos -> FLOAT .)
+    EQUAL           reduce using rule 29 (datos -> FLOAT .)
+    FOR             reduce using rule 29 (datos -> FLOAT .)
+    PUTS            reduce using rule 29 (datos -> FLOAT .)
+    PRINT           reduce using rule 29 (datos -> FLOAT .)
+    VAR             reduce using rule 29 (datos -> FLOAT .)
+    LOCALVAR        reduce using rule 29 (datos -> FLOAT .)
+    CONSTANT        reduce using rule 29 (datos -> FLOAT .)
+    RPARENTHESES    reduce using rule 29 (datos -> FLOAT .)
+    RCURLYBRACKET   reduce using rule 29 (datos -> FLOAT .)
 
 
 state 26
 
-    (20) declaracion -> tiposvariables EQUAL datos .
+    (30) datos -> STRING .
 
-    $end            reduce using rule 20 (declaracion -> tiposvariables EQUAL datos .)
-    END             reduce using rule 20 (declaracion -> tiposvariables EQUAL datos .)
-    RETURN          reduce using rule 20 (declaracion -> tiposvariables EQUAL datos .)
+    $end            reduce using rule 30 (datos -> STRING .)
+    END             reduce using rule 30 (datos -> STRING .)
+    ELSE            reduce using rule 30 (datos -> STRING .)
+    RETURN          reduce using rule 30 (datos -> STRING .)
+    DOUBLEEQUAL     reduce using rule 30 (datos -> STRING .)
+    TRIPLEEQUAL     reduce using rule 30 (datos -> STRING .)
+    GREATERTHAN     reduce using rule 30 (datos -> STRING .)
+    EXCLAMATION     reduce using rule 30 (datos -> STRING .)
+    LESSTHAN        reduce using rule 30 (datos -> STRING .)
+    GREQUAL         reduce using rule 30 (datos -> STRING .)
+    LEQUAL          reduce using rule 30 (datos -> STRING .)
+    RBRACKET        reduce using rule 30 (datos -> STRING .)
+    COMMA           reduce using rule 30 (datos -> STRING .)
+    EQUAL           reduce using rule 30 (datos -> STRING .)
+    FOR             reduce using rule 30 (datos -> STRING .)
+    PUTS            reduce using rule 30 (datos -> STRING .)
+    PRINT           reduce using rule 30 (datos -> STRING .)
+    VAR             reduce using rule 30 (datos -> STRING .)
+    LOCALVAR        reduce using rule 30 (datos -> STRING .)
+    CONSTANT        reduce using rule 30 (datos -> STRING .)
+    RPARENTHESES    reduce using rule 30 (datos -> STRING .)
+    RCURLYBRACKET   reduce using rule 30 (datos -> STRING .)
 
 
 state 27
 
-    (21) declaracion -> tiposvariables EQUAL estructuras .
+    (47) impresion -> PRINT datos .
 
-    $end            reduce using rule 21 (declaracion -> tiposvariables EQUAL estructuras .)
-    END             reduce using rule 21 (declaracion -> tiposvariables EQUAL estructuras .)
-    RETURN          reduce using rule 21 (declaracion -> tiposvariables EQUAL estructuras .)
+    $end            reduce using rule 47 (impresion -> PRINT datos .)
+    END             reduce using rule 47 (impresion -> PRINT datos .)
+    ELSE            reduce using rule 47 (impresion -> PRINT datos .)
+    RETURN          reduce using rule 47 (impresion -> PRINT datos .)
 
 
 state 28
 
-    (28) estructuras -> hash .
+    (49) impresion -> PRINT LOCALVAR .
+    (40) masopciones -> LOCALVAR . DOT funcionesHash masopciones
 
-    $end            reduce using rule 28 (estructuras -> hash .)
-    END             reduce using rule 28 (estructuras -> hash .)
-    RETURN          reduce using rule 28 (estructuras -> hash .)
+    $end            reduce using rule 49 (impresion -> PRINT LOCALVAR .)
+    END             reduce using rule 49 (impresion -> PRINT LOCALVAR .)
+    ELSE            reduce using rule 49 (impresion -> PRINT LOCALVAR .)
+    RETURN          reduce using rule 49 (impresion -> PRINT LOCALVAR .)
+    DOT             shift and go to state 41
 
 
 state 29
 
-    (32) hash -> LCURLYBRACKET . elementoHash RCURLYBRACKET masopciones
-    (33) elementoHash -> . datos EQUAL GREATERTHAN datos maselementos
-    (25) datos -> . NUMBER
-    (26) datos -> . FLOAT
-    (27) datos -> . STRING
+    (51) impresion -> PRINT masopciones .
 
-    NUMBER          shift and go to state 19
-    FLOAT           shift and go to state 20
-    STRING          shift and go to state 21
+    $end            reduce using rule 51 (impresion -> PRINT masopciones .)
+    END             reduce using rule 51 (impresion -> PRINT masopciones .)
+    ELSE            reduce using rule 51 (impresion -> PRINT masopciones .)
+    RETURN          reduce using rule 51 (impresion -> PRINT masopciones .)
 
-    elementoHash                   shift and go to state 33
-    datos                          shift and go to state 34
 
 state 30
 
-    (19) loop -> FOR LOCALVAR IN . rango cuerpo END
-    (41) rango -> . NUMBER RANGEINCLUSIVE NUMBER
-    (42) rango -> . NUMBER RANGEXCLUSIVE NUMBER
+    (8) funcion -> DEF LOCALVAR . LPARENTHESES argumentos RPARENTHESES cuerpo END
+    (9) funcion -> DEF LOCALVAR . LPARENTHESES argumentos RPARENTHESES cuerpo retornar END
 
-    NUMBER          shift and go to state 36
+    LPARENTHESES    shift and go to state 42
 
-    rango                          shift and go to state 35
 
 state 31
 
-    (37) masopciones -> LOCALVAR DOT . funcionesHash masopciones
-    (38) funcionesHash -> . INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES
-    (39) funcionesHash -> . DELETE LPARENTHESES datos RPARENTHESES
-    (40) funcionesHash -> . KEYS
+    (54) if -> IF datosvarios . operadores datosvarios cuerpo END
+    (55) if -> IF datosvarios . operadores datosvarios cuerpo else
+    (57) operadores -> . DOUBLEEQUAL
+    (58) operadores -> . TRIPLEEQUAL
+    (59) operadores -> . GREATERTHAN
+    (60) operadores -> . EXCLAMATION EQUAL
+    (61) operadores -> . LESSTHAN
+    (62) operadores -> . GREQUAL
+    (63) operadores -> . LEQUAL
 
-    INCLUDE         shift and go to state 38
-    DELETE          shift and go to state 39
-    KEYS            shift and go to state 40
+    DOUBLEEQUAL     shift and go to state 44
+    TRIPLEEQUAL     shift and go to state 45
+    GREATERTHAN     shift and go to state 46
+    EXCLAMATION     shift and go to state 47
+    LESSTHAN        shift and go to state 48
+    GREQUAL         shift and go to state 49
+    LEQUAL          shift and go to state 50
 
-    funcionesHash                  shift and go to state 37
+    operadores                     shift and go to state 43
 
 state 32
 
-    (5) funcion -> DEF LOCALVAR LPARENTHESES . argumentos RPARENTHESES cuerpo END
-    (6) funcion -> DEF LOCALVAR LPARENTHESES . argumentos RPARENTHESES cuerpo retornar END
-    (7) argumentos -> . variosargumentos
-    (8) argumentos -> . MULTIPLY LOCALVAR
-    (9) argumentos -> . TWOSTARS LOCALVAR
-    (10) argumentos -> . LOCALVAR EQUAL LCURLYBRACKET RCURLYBRACKET
-    (11) argumentos -> . LOCALVAR TWOPOINTS datos
-    (12) variosargumentos -> . LOCALVAR
-    (13) variosargumentos -> . LOCALVAR EQUAL datos
-    (14) variosargumentos -> . LOCALVAR masargumentos
-    (15) variosargumentos -> . LOCALVAR EQUAL datos masargumentos
+    (64) datosvarios -> datos .
 
-    MULTIPLY        shift and go to state 44
-    TWOSTARS        shift and go to state 45
-    LOCALVAR        shift and go to state 41
+    DOUBLEEQUAL     reduce using rule 64 (datosvarios -> datos .)
+    TRIPLEEQUAL     reduce using rule 64 (datosvarios -> datos .)
+    GREATERTHAN     reduce using rule 64 (datosvarios -> datos .)
+    EXCLAMATION     reduce using rule 64 (datosvarios -> datos .)
+    LESSTHAN        reduce using rule 64 (datosvarios -> datos .)
+    GREQUAL         reduce using rule 64 (datosvarios -> datos .)
+    LEQUAL          reduce using rule 64 (datosvarios -> datos .)
+    RBRACKET        reduce using rule 64 (datosvarios -> datos .)
+    COMMA           reduce using rule 64 (datosvarios -> datos .)
+    FOR             reduce using rule 64 (datosvarios -> datos .)
+    PUTS            reduce using rule 64 (datosvarios -> datos .)
+    PRINT           reduce using rule 64 (datosvarios -> datos .)
+    VAR             reduce using rule 64 (datosvarios -> datos .)
+    LOCALVAR        reduce using rule 64 (datosvarios -> datos .)
+    CONSTANT        reduce using rule 64 (datosvarios -> datos .)
 
-    argumentos                     shift and go to state 42
-    variosargumentos               shift and go to state 43
 
 state 33
 
-    (32) hash -> LCURLYBRACKET elementoHash . RCURLYBRACKET masopciones
+    (65) datosvarios -> tiposvariables .
 
-    RCURLYBRACKET   shift and go to state 46
+    DOUBLEEQUAL     reduce using rule 65 (datosvarios -> tiposvariables .)
+    TRIPLEEQUAL     reduce using rule 65 (datosvarios -> tiposvariables .)
+    GREATERTHAN     reduce using rule 65 (datosvarios -> tiposvariables .)
+    EXCLAMATION     reduce using rule 65 (datosvarios -> tiposvariables .)
+    LESSTHAN        reduce using rule 65 (datosvarios -> tiposvariables .)
+    GREQUAL         reduce using rule 65 (datosvarios -> tiposvariables .)
+    LEQUAL          reduce using rule 65 (datosvarios -> tiposvariables .)
+    RBRACKET        reduce using rule 65 (datosvarios -> tiposvariables .)
+    COMMA           reduce using rule 65 (datosvarios -> tiposvariables .)
+    FOR             reduce using rule 65 (datosvarios -> tiposvariables .)
+    PUTS            reduce using rule 65 (datosvarios -> tiposvariables .)
+    PRINT           reduce using rule 65 (datosvarios -> tiposvariables .)
+    VAR             reduce using rule 65 (datosvarios -> tiposvariables .)
+    LOCALVAR        reduce using rule 65 (datosvarios -> tiposvariables .)
+    CONSTANT        reduce using rule 65 (datosvarios -> tiposvariables .)
 
 
 state 34
 
-    (33) elementoHash -> datos . EQUAL GREATERTHAN datos maselementos
+    (23) declaracion -> tiposvariables EQUAL datos .
 
-    EQUAL           shift and go to state 47
+    $end            reduce using rule 23 (declaracion -> tiposvariables EQUAL datos .)
+    END             reduce using rule 23 (declaracion -> tiposvariables EQUAL datos .)
+    ELSE            reduce using rule 23 (declaracion -> tiposvariables EQUAL datos .)
+    RETURN          reduce using rule 23 (declaracion -> tiposvariables EQUAL datos .)
 
 
 state 35
 
-    (19) loop -> FOR LOCALVAR IN rango . cuerpo END
-    (29) cuerpo -> . declaracion
-    (30) cuerpo -> . loop
-    (31) cuerpo -> . impresion
-    (20) declaracion -> . tiposvariables EQUAL datos
-    (21) declaracion -> . tiposvariables EQUAL estructuras
-    (19) loop -> . FOR LOCALVAR IN rango cuerpo END
-    (43) impresion -> . PUTS datos
-    (44) impresion -> . PRINT datos
-    (45) impresion -> . PUTS LOCALVAR
-    (46) impresion -> . PRINT LOCALVAR
-    (47) impresion -> . PUTS masopciones
-    (48) impresion -> . PRINT masopciones
-    (22) tiposvariables -> . VAR
-    (23) tiposvariables -> . LOCALVAR
-    (24) tiposvariables -> . CONSTANT
+    (24) declaracion -> tiposvariables EQUAL estructuras .
 
-    FOR             shift and go to state 7
-    PUTS            shift and go to state 9
-    PRINT           shift and go to state 10
-    VAR             shift and go to state 12
-    LOCALVAR        shift and go to state 8
-    CONSTANT        shift and go to state 13
+    $end            reduce using rule 24 (declaracion -> tiposvariables EQUAL estructuras .)
+    END             reduce using rule 24 (declaracion -> tiposvariables EQUAL estructuras .)
+    ELSE            reduce using rule 24 (declaracion -> tiposvariables EQUAL estructuras .)
+    RETURN          reduce using rule 24 (declaracion -> tiposvariables EQUAL estructuras .)
 
-    cuerpo                         shift and go to state 48
-    declaracion                    shift and go to state 49
-    loop                           shift and go to state 50
-    impresion                      shift and go to state 51
-    tiposvariables                 shift and go to state 6
 
 state 36
 
-    (41) rango -> NUMBER . RANGEINCLUSIVE NUMBER
-    (42) rango -> NUMBER . RANGEXCLUSIVE NUMBER
+    (52) array -> tiposvariables EQUAL LBRACKET . datosarray RBRACKET
+    (53) array -> tiposvariables EQUAL LBRACKET . RBRACKET
+    (66) datosarray -> . datosvarios
+    (67) datosarray -> . datosarray COMMA datosvarios
+    (64) datosvarios -> . datos
+    (65) datosvarios -> . tiposvariables
+    (28) datos -> . NUMBER
+    (29) datos -> . FLOAT
+    (30) datos -> . STRING
+    (25) tiposvariables -> . VAR
+    (26) tiposvariables -> . LOCALVAR
+    (27) tiposvariables -> . CONSTANT
 
-    RANGEINCLUSIVE  shift and go to state 52
-    RANGEXCLUSIVE   shift and go to state 53
+    RBRACKET        shift and go to state 52
+    NUMBER          shift and go to state 24
+    FLOAT           shift and go to state 25
+    STRING          shift and go to state 26
+    VAR             shift and go to state 16
+    LOCALVAR        shift and go to state 11
+    CONSTANT        shift and go to state 17
 
+    tiposvariables                 shift and go to state 33
+    datosarray                     shift and go to state 51
+    datosvarios                    shift and go to state 53
+    datos                          shift and go to state 32
 
 state 37
 
-    (37) masopciones -> LOCALVAR DOT funcionesHash . masopciones
-    (36) masopciones -> .
-    (37) masopciones -> . LOCALVAR DOT funcionesHash masopciones
+    (31) estructuras -> hash .
 
-    $end            reduce using rule 36 (masopciones -> .)
-    END             reduce using rule 36 (masopciones -> .)
-    RETURN          reduce using rule 36 (masopciones -> .)
-    LOCALVAR        shift and go to state 54
+    $end            reduce using rule 31 (estructuras -> hash .)
+    END             reduce using rule 31 (estructuras -> hash .)
+    ELSE            reduce using rule 31 (estructuras -> hash .)
+    RETURN          reduce using rule 31 (estructuras -> hash .)
 
-    masopciones                    shift and go to state 55
 
 state 38
 
-    (38) funcionesHash -> INCLUDE . QUESTIONMARK LPARENTHESES datos RPARENTHESES
+    (35) hash -> LCURLYBRACKET . elementoHash RCURLYBRACKET masopciones
+    (36) elementoHash -> . datos EQUAL GREATERTHAN datos maselementos
+    (28) datos -> . NUMBER
+    (29) datos -> . FLOAT
+    (30) datos -> . STRING
 
-    QUESTIONMARK    shift and go to state 56
+    NUMBER          shift and go to state 24
+    FLOAT           shift and go to state 25
+    STRING          shift and go to state 26
 
+    elementoHash                   shift and go to state 54
+    datos                          shift and go to state 55
 
 state 39
 
-    (39) funcionesHash -> DELETE . LPARENTHESES datos RPARENTHESES
+    (68) accederarray -> tiposvariables LBRACKET NUMBER . RBRACKET
 
-    LPARENTHESES    shift and go to state 57
+    RBRACKET        shift and go to state 56
 
 
 state 40
 
-    (40) funcionesHash -> KEYS .
+    (22) loop -> FOR LOCALVAR IN . rango cuerpo END
+    (44) rango -> . NUMBER RANGEINCLUSIVE NUMBER
+    (45) rango -> . NUMBER RANGEXCLUSIVE NUMBER
 
-    LOCALVAR        reduce using rule 40 (funcionesHash -> KEYS .)
-    $end            reduce using rule 40 (funcionesHash -> KEYS .)
-    END             reduce using rule 40 (funcionesHash -> KEYS .)
-    RETURN          reduce using rule 40 (funcionesHash -> KEYS .)
+    NUMBER          shift and go to state 58
 
+    rango                          shift and go to state 57
 
 state 41
 
-    (10) argumentos -> LOCALVAR . EQUAL LCURLYBRACKET RCURLYBRACKET
-    (11) argumentos -> LOCALVAR . TWOPOINTS datos
-    (12) variosargumentos -> LOCALVAR .
-    (13) variosargumentos -> LOCALVAR . EQUAL datos
-    (14) variosargumentos -> LOCALVAR . masargumentos
-    (15) variosargumentos -> LOCALVAR . EQUAL datos masargumentos
-    (16) masargumentos -> . COMMA variosargumentos
+    (40) masopciones -> LOCALVAR DOT . funcionesHash masopciones
+    (41) funcionesHash -> . INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES
+    (42) funcionesHash -> . DELETE LPARENTHESES datos RPARENTHESES
+    (43) funcionesHash -> . KEYS
 
-    EQUAL           shift and go to state 58
-    TWOPOINTS       shift and go to state 59
-    RPARENTHESES    reduce using rule 12 (variosargumentos -> LOCALVAR .)
-    COMMA           shift and go to state 61
+    INCLUDE         shift and go to state 60
+    DELETE          shift and go to state 61
+    KEYS            shift and go to state 62
 
-    masargumentos                  shift and go to state 60
+    funcionesHash                  shift and go to state 59
 
 state 42
 
-    (5) funcion -> DEF LOCALVAR LPARENTHESES argumentos . RPARENTHESES cuerpo END
-    (6) funcion -> DEF LOCALVAR LPARENTHESES argumentos . RPARENTHESES cuerpo retornar END
+    (8) funcion -> DEF LOCALVAR LPARENTHESES . argumentos RPARENTHESES cuerpo END
+    (9) funcion -> DEF LOCALVAR LPARENTHESES . argumentos RPARENTHESES cuerpo retornar END
+    (10) argumentos -> . variosargumentos
+    (11) argumentos -> . MULTIPLY LOCALVAR
+    (12) argumentos -> . TWOSTARS LOCALVAR
+    (13) argumentos -> . LOCALVAR EQUAL LCURLYBRACKET RCURLYBRACKET
+    (14) argumentos -> . LOCALVAR TWOPOINTS datos
+    (15) variosargumentos -> . LOCALVAR
+    (16) variosargumentos -> . LOCALVAR EQUAL datos
+    (17) variosargumentos -> . LOCALVAR masargumentos
+    (18) variosargumentos -> . LOCALVAR EQUAL datos masargumentos
 
-    RPARENTHESES    shift and go to state 62
+    MULTIPLY        shift and go to state 66
+    TWOSTARS        shift and go to state 67
+    LOCALVAR        shift and go to state 63
 
+    argumentos                     shift and go to state 64
+    variosargumentos               shift and go to state 65
 
 state 43
 
-    (7) argumentos -> variosargumentos .
+    (54) if -> IF datosvarios operadores . datosvarios cuerpo END
+    (55) if -> IF datosvarios operadores . datosvarios cuerpo else
+    (64) datosvarios -> . datos
+    (65) datosvarios -> . tiposvariables
+    (28) datos -> . NUMBER
+    (29) datos -> . FLOAT
+    (30) datos -> . STRING
+    (25) tiposvariables -> . VAR
+    (26) tiposvariables -> . LOCALVAR
+    (27) tiposvariables -> . CONSTANT
 
-    RPARENTHESES    reduce using rule 7 (argumentos -> variosargumentos .)
+    NUMBER          shift and go to state 24
+    FLOAT           shift and go to state 25
+    STRING          shift and go to state 26
+    VAR             shift and go to state 16
+    LOCALVAR        shift and go to state 11
+    CONSTANT        shift and go to state 17
 
+    datosvarios                    shift and go to state 68
+    datos                          shift and go to state 32
+    tiposvariables                 shift and go to state 33
 
 state 44
 
-    (8) argumentos -> MULTIPLY . LOCALVAR
+    (57) operadores -> DOUBLEEQUAL .
 
-    LOCALVAR        shift and go to state 63
+    NUMBER          reduce using rule 57 (operadores -> DOUBLEEQUAL .)
+    FLOAT           reduce using rule 57 (operadores -> DOUBLEEQUAL .)
+    STRING          reduce using rule 57 (operadores -> DOUBLEEQUAL .)
+    VAR             reduce using rule 57 (operadores -> DOUBLEEQUAL .)
+    LOCALVAR        reduce using rule 57 (operadores -> DOUBLEEQUAL .)
+    CONSTANT        reduce using rule 57 (operadores -> DOUBLEEQUAL .)
 
 
 state 45
 
-    (9) argumentos -> TWOSTARS . LOCALVAR
+    (58) operadores -> TRIPLEEQUAL .
 
-    LOCALVAR        shift and go to state 64
+    NUMBER          reduce using rule 58 (operadores -> TRIPLEEQUAL .)
+    FLOAT           reduce using rule 58 (operadores -> TRIPLEEQUAL .)
+    STRING          reduce using rule 58 (operadores -> TRIPLEEQUAL .)
+    VAR             reduce using rule 58 (operadores -> TRIPLEEQUAL .)
+    LOCALVAR        reduce using rule 58 (operadores -> TRIPLEEQUAL .)
+    CONSTANT        reduce using rule 58 (operadores -> TRIPLEEQUAL .)
 
 
 state 46
 
-    (32) hash -> LCURLYBRACKET elementoHash RCURLYBRACKET . masopciones
-    (36) masopciones -> .
-    (37) masopciones -> . LOCALVAR DOT funcionesHash masopciones
+    (59) operadores -> GREATERTHAN .
 
-    $end            reduce using rule 36 (masopciones -> .)
-    END             reduce using rule 36 (masopciones -> .)
-    RETURN          reduce using rule 36 (masopciones -> .)
-    LOCALVAR        shift and go to state 54
+    NUMBER          reduce using rule 59 (operadores -> GREATERTHAN .)
+    FLOAT           reduce using rule 59 (operadores -> GREATERTHAN .)
+    STRING          reduce using rule 59 (operadores -> GREATERTHAN .)
+    VAR             reduce using rule 59 (operadores -> GREATERTHAN .)
+    LOCALVAR        reduce using rule 59 (operadores -> GREATERTHAN .)
+    CONSTANT        reduce using rule 59 (operadores -> GREATERTHAN .)
 
-    masopciones                    shift and go to state 65
 
 state 47
 
-    (33) elementoHash -> datos EQUAL . GREATERTHAN datos maselementos
+    (60) operadores -> EXCLAMATION . EQUAL
 
-    GREATERTHAN     shift and go to state 66
+    EQUAL           shift and go to state 69
 
 
 state 48
 
-    (19) loop -> FOR LOCALVAR IN rango cuerpo . END
+    (61) operadores -> LESSTHAN .
 
-    END             shift and go to state 67
+    NUMBER          reduce using rule 61 (operadores -> LESSTHAN .)
+    FLOAT           reduce using rule 61 (operadores -> LESSTHAN .)
+    STRING          reduce using rule 61 (operadores -> LESSTHAN .)
+    VAR             reduce using rule 61 (operadores -> LESSTHAN .)
+    LOCALVAR        reduce using rule 61 (operadores -> LESSTHAN .)
+    CONSTANT        reduce using rule 61 (operadores -> LESSTHAN .)
 
 
 state 49
 
-    (29) cuerpo -> declaracion .
+    (62) operadores -> GREQUAL .
 
-    END             reduce using rule 29 (cuerpo -> declaracion .)
-    RETURN          reduce using rule 29 (cuerpo -> declaracion .)
+    NUMBER          reduce using rule 62 (operadores -> GREQUAL .)
+    FLOAT           reduce using rule 62 (operadores -> GREQUAL .)
+    STRING          reduce using rule 62 (operadores -> GREQUAL .)
+    VAR             reduce using rule 62 (operadores -> GREQUAL .)
+    LOCALVAR        reduce using rule 62 (operadores -> GREQUAL .)
+    CONSTANT        reduce using rule 62 (operadores -> GREQUAL .)
 
 
 state 50
 
-    (30) cuerpo -> loop .
+    (63) operadores -> LEQUAL .
 
-    END             reduce using rule 30 (cuerpo -> loop .)
-    RETURN          reduce using rule 30 (cuerpo -> loop .)
+    NUMBER          reduce using rule 63 (operadores -> LEQUAL .)
+    FLOAT           reduce using rule 63 (operadores -> LEQUAL .)
+    STRING          reduce using rule 63 (operadores -> LEQUAL .)
+    VAR             reduce using rule 63 (operadores -> LEQUAL .)
+    LOCALVAR        reduce using rule 63 (operadores -> LEQUAL .)
+    CONSTANT        reduce using rule 63 (operadores -> LEQUAL .)
 
 
 state 51
 
-    (31) cuerpo -> impresion .
+    (52) array -> tiposvariables EQUAL LBRACKET datosarray . RBRACKET
+    (67) datosarray -> datosarray . COMMA datosvarios
 
-    END             reduce using rule 31 (cuerpo -> impresion .)
-    RETURN          reduce using rule 31 (cuerpo -> impresion .)
+    RBRACKET        shift and go to state 70
+    COMMA           shift and go to state 71
 
 
 state 52
 
-    (41) rango -> NUMBER RANGEINCLUSIVE . NUMBER
+    (53) array -> tiposvariables EQUAL LBRACKET RBRACKET .
 
-    NUMBER          shift and go to state 68
+    $end            reduce using rule 53 (array -> tiposvariables EQUAL LBRACKET RBRACKET .)
 
 
 state 53
 
-    (42) rango -> NUMBER RANGEXCLUSIVE . NUMBER
+    (66) datosarray -> datosvarios .
 
-    NUMBER          shift and go to state 69
+    RBRACKET        reduce using rule 66 (datosarray -> datosvarios .)
+    COMMA           reduce using rule 66 (datosarray -> datosvarios .)
 
 
 state 54
 
-    (37) masopciones -> LOCALVAR . DOT funcionesHash masopciones
+    (35) hash -> LCURLYBRACKET elementoHash . RCURLYBRACKET masopciones
 
-    DOT             shift and go to state 31
+    RCURLYBRACKET   shift and go to state 72
 
 
 state 55
 
-    (37) masopciones -> LOCALVAR DOT funcionesHash masopciones .
+    (36) elementoHash -> datos . EQUAL GREATERTHAN datos maselementos
 
-    $end            reduce using rule 37 (masopciones -> LOCALVAR DOT funcionesHash masopciones .)
-    END             reduce using rule 37 (masopciones -> LOCALVAR DOT funcionesHash masopciones .)
-    RETURN          reduce using rule 37 (masopciones -> LOCALVAR DOT funcionesHash masopciones .)
+    EQUAL           shift and go to state 73
 
 
 state 56
 
-    (38) funcionesHash -> INCLUDE QUESTIONMARK . LPARENTHESES datos RPARENTHESES
+    (68) accederarray -> tiposvariables LBRACKET NUMBER RBRACKET .
 
-    LPARENTHESES    shift and go to state 70
+    $end            reduce using rule 68 (accederarray -> tiposvariables LBRACKET NUMBER RBRACKET .)
 
 
 state 57
 
-    (39) funcionesHash -> DELETE LPARENTHESES . datos RPARENTHESES
-    (25) datos -> . NUMBER
-    (26) datos -> . FLOAT
-    (27) datos -> . STRING
+    (22) loop -> FOR LOCALVAR IN rango . cuerpo END
+    (32) cuerpo -> . declaracion
+    (33) cuerpo -> . loop
+    (34) cuerpo -> . impresion
+    (23) declaracion -> . tiposvariables EQUAL datos
+    (24) declaracion -> . tiposvariables EQUAL estructuras
+    (22) loop -> . FOR LOCALVAR IN rango cuerpo END
+    (46) impresion -> . PUTS datos
+    (47) impresion -> . PRINT datos
+    (48) impresion -> . PUTS LOCALVAR
+    (49) impresion -> . PRINT LOCALVAR
+    (50) impresion -> . PUTS masopciones
+    (51) impresion -> . PRINT masopciones
+    (25) tiposvariables -> . VAR
+    (26) tiposvariables -> . LOCALVAR
+    (27) tiposvariables -> . CONSTANT
 
-    NUMBER          shift and go to state 19
-    FLOAT           shift and go to state 20
-    STRING          shift and go to state 21
+    FOR             shift and go to state 10
+    PUTS            shift and go to state 12
+    PRINT           shift and go to state 13
+    VAR             shift and go to state 16
+    LOCALVAR        shift and go to state 11
+    CONSTANT        shift and go to state 17
 
-    datos                          shift and go to state 71
+    cuerpo                         shift and go to state 74
+    declaracion                    shift and go to state 75
+    loop                           shift and go to state 76
+    impresion                      shift and go to state 77
+    tiposvariables                 shift and go to state 78
 
 state 58
 
-    (10) argumentos -> LOCALVAR EQUAL . LCURLYBRACKET RCURLYBRACKET
-    (13) variosargumentos -> LOCALVAR EQUAL . datos
-    (15) variosargumentos -> LOCALVAR EQUAL . datos masargumentos
-    (25) datos -> . NUMBER
-    (26) datos -> . FLOAT
-    (27) datos -> . STRING
+    (44) rango -> NUMBER . RANGEINCLUSIVE NUMBER
+    (45) rango -> NUMBER . RANGEXCLUSIVE NUMBER
 
-    LCURLYBRACKET   shift and go to state 72
-    NUMBER          shift and go to state 19
-    FLOAT           shift and go to state 20
-    STRING          shift and go to state 21
+    RANGEINCLUSIVE  shift and go to state 79
+    RANGEXCLUSIVE   shift and go to state 80
 
-    datos                          shift and go to state 73
 
 state 59
 
-    (11) argumentos -> LOCALVAR TWOPOINTS . datos
-    (25) datos -> . NUMBER
-    (26) datos -> . FLOAT
-    (27) datos -> . STRING
+    (40) masopciones -> LOCALVAR DOT funcionesHash . masopciones
+    (39) masopciones -> .
+    (40) masopciones -> . LOCALVAR DOT funcionesHash masopciones
 
-    NUMBER          shift and go to state 19
-    FLOAT           shift and go to state 20
-    STRING          shift and go to state 21
+    $end            reduce using rule 39 (masopciones -> .)
+    END             reduce using rule 39 (masopciones -> .)
+    ELSE            reduce using rule 39 (masopciones -> .)
+    RETURN          reduce using rule 39 (masopciones -> .)
+    LOCALVAR        shift and go to state 81
 
-    datos                          shift and go to state 74
+    masopciones                    shift and go to state 82
 
 state 60
 
-    (14) variosargumentos -> LOCALVAR masargumentos .
+    (41) funcionesHash -> INCLUDE . QUESTIONMARK LPARENTHESES datos RPARENTHESES
 
-    RPARENTHESES    reduce using rule 14 (variosargumentos -> LOCALVAR masargumentos .)
+    QUESTIONMARK    shift and go to state 83
 
 
 state 61
 
-    (16) masargumentos -> COMMA . variosargumentos
-    (12) variosargumentos -> . LOCALVAR
-    (13) variosargumentos -> . LOCALVAR EQUAL datos
-    (14) variosargumentos -> . LOCALVAR masargumentos
-    (15) variosargumentos -> . LOCALVAR EQUAL datos masargumentos
+    (42) funcionesHash -> DELETE . LPARENTHESES datos RPARENTHESES
 
-    LOCALVAR        shift and go to state 76
+    LPARENTHESES    shift and go to state 84
 
-    variosargumentos               shift and go to state 75
 
 state 62
 
-    (5) funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES . cuerpo END
-    (6) funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES . cuerpo retornar END
-    (29) cuerpo -> . declaracion
-    (30) cuerpo -> . loop
-    (31) cuerpo -> . impresion
-    (20) declaracion -> . tiposvariables EQUAL datos
-    (21) declaracion -> . tiposvariables EQUAL estructuras
-    (19) loop -> . FOR LOCALVAR IN rango cuerpo END
-    (43) impresion -> . PUTS datos
-    (44) impresion -> . PRINT datos
-    (45) impresion -> . PUTS LOCALVAR
-    (46) impresion -> . PRINT LOCALVAR
-    (47) impresion -> . PUTS masopciones
-    (48) impresion -> . PRINT masopciones
-    (22) tiposvariables -> . VAR
-    (23) tiposvariables -> . LOCALVAR
-    (24) tiposvariables -> . CONSTANT
+    (43) funcionesHash -> KEYS .
 
-    FOR             shift and go to state 7
-    PUTS            shift and go to state 9
-    PRINT           shift and go to state 10
-    VAR             shift and go to state 12
-    LOCALVAR        shift and go to state 8
-    CONSTANT        shift and go to state 13
+    LOCALVAR        reduce using rule 43 (funcionesHash -> KEYS .)
+    $end            reduce using rule 43 (funcionesHash -> KEYS .)
+    END             reduce using rule 43 (funcionesHash -> KEYS .)
+    ELSE            reduce using rule 43 (funcionesHash -> KEYS .)
+    RETURN          reduce using rule 43 (funcionesHash -> KEYS .)
 
-    cuerpo                         shift and go to state 77
-    declaracion                    shift and go to state 49
-    loop                           shift and go to state 50
-    impresion                      shift and go to state 51
-    tiposvariables                 shift and go to state 6
 
 state 63
 
-    (8) argumentos -> MULTIPLY LOCALVAR .
+    (13) argumentos -> LOCALVAR . EQUAL LCURLYBRACKET RCURLYBRACKET
+    (14) argumentos -> LOCALVAR . TWOPOINTS datos
+    (15) variosargumentos -> LOCALVAR .
+    (16) variosargumentos -> LOCALVAR . EQUAL datos
+    (17) variosargumentos -> LOCALVAR . masargumentos
+    (18) variosargumentos -> LOCALVAR . EQUAL datos masargumentos
+    (19) masargumentos -> . COMMA variosargumentos
 
-    RPARENTHESES    reduce using rule 8 (argumentos -> MULTIPLY LOCALVAR .)
+    EQUAL           shift and go to state 85
+    TWOPOINTS       shift and go to state 86
+    RPARENTHESES    reduce using rule 15 (variosargumentos -> LOCALVAR .)
+    COMMA           shift and go to state 88
 
+    masargumentos                  shift and go to state 87
 
 state 64
 
-    (9) argumentos -> TWOSTARS LOCALVAR .
-
-    RPARENTHESES    reduce using rule 9 (argumentos -> TWOSTARS LOCALVAR .)
-
-
-state 65
-
-    (32) hash -> LCURLYBRACKET elementoHash RCURLYBRACKET masopciones .
-
-    $end            reduce using rule 32 (hash -> LCURLYBRACKET elementoHash RCURLYBRACKET masopciones .)
-    END             reduce using rule 32 (hash -> LCURLYBRACKET elementoHash RCURLYBRACKET masopciones .)
-    RETURN          reduce using rule 32 (hash -> LCURLYBRACKET elementoHash RCURLYBRACKET masopciones .)
-
-
-state 66
-
-    (33) elementoHash -> datos EQUAL GREATERTHAN . datos maselementos
-    (25) datos -> . NUMBER
-    (26) datos -> . FLOAT
-    (27) datos -> . STRING
-
-    NUMBER          shift and go to state 19
-    FLOAT           shift and go to state 20
-    STRING          shift and go to state 21
-
-    datos                          shift and go to state 78
-
-state 67
-
-    (19) loop -> FOR LOCALVAR IN rango cuerpo END .
-
-    $end            reduce using rule 19 (loop -> FOR LOCALVAR IN rango cuerpo END .)
-    END             reduce using rule 19 (loop -> FOR LOCALVAR IN rango cuerpo END .)
-    RETURN          reduce using rule 19 (loop -> FOR LOCALVAR IN rango cuerpo END .)
-
-
-state 68
-
-    (41) rango -> NUMBER RANGEINCLUSIVE NUMBER .
-
-    FOR             reduce using rule 41 (rango -> NUMBER RANGEINCLUSIVE NUMBER .)
-    PUTS            reduce using rule 41 (rango -> NUMBER RANGEINCLUSIVE NUMBER .)
-    PRINT           reduce using rule 41 (rango -> NUMBER RANGEINCLUSIVE NUMBER .)
-    VAR             reduce using rule 41 (rango -> NUMBER RANGEINCLUSIVE NUMBER .)
-    LOCALVAR        reduce using rule 41 (rango -> NUMBER RANGEINCLUSIVE NUMBER .)
-    CONSTANT        reduce using rule 41 (rango -> NUMBER RANGEINCLUSIVE NUMBER .)
-
-
-state 69
-
-    (42) rango -> NUMBER RANGEXCLUSIVE NUMBER .
-
-    FOR             reduce using rule 42 (rango -> NUMBER RANGEXCLUSIVE NUMBER .)
-    PUTS            reduce using rule 42 (rango -> NUMBER RANGEXCLUSIVE NUMBER .)
-    PRINT           reduce using rule 42 (rango -> NUMBER RANGEXCLUSIVE NUMBER .)
-    VAR             reduce using rule 42 (rango -> NUMBER RANGEXCLUSIVE NUMBER .)
-    LOCALVAR        reduce using rule 42 (rango -> NUMBER RANGEXCLUSIVE NUMBER .)
-    CONSTANT        reduce using rule 42 (rango -> NUMBER RANGEXCLUSIVE NUMBER .)
-
-
-state 70
-
-    (38) funcionesHash -> INCLUDE QUESTIONMARK LPARENTHESES . datos RPARENTHESES
-    (25) datos -> . NUMBER
-    (26) datos -> . FLOAT
-    (27) datos -> . STRING
-
-    NUMBER          shift and go to state 19
-    FLOAT           shift and go to state 20
-    STRING          shift and go to state 21
-
-    datos                          shift and go to state 79
-
-state 71
-
-    (39) funcionesHash -> DELETE LPARENTHESES datos . RPARENTHESES
-
-    RPARENTHESES    shift and go to state 80
-
-
-state 72
-
-    (10) argumentos -> LOCALVAR EQUAL LCURLYBRACKET . RCURLYBRACKET
-
-    RCURLYBRACKET   shift and go to state 81
-
-
-state 73
-
-    (13) variosargumentos -> LOCALVAR EQUAL datos .
-    (15) variosargumentos -> LOCALVAR EQUAL datos . masargumentos
-    (16) masargumentos -> . COMMA variosargumentos
-
-    RPARENTHESES    reduce using rule 13 (variosargumentos -> LOCALVAR EQUAL datos .)
-    COMMA           shift and go to state 61
-
-    masargumentos                  shift and go to state 82
-
-state 74
-
-    (11) argumentos -> LOCALVAR TWOPOINTS datos .
-
-    RPARENTHESES    reduce using rule 11 (argumentos -> LOCALVAR TWOPOINTS datos .)
-
-
-state 75
-
-    (16) masargumentos -> COMMA variosargumentos .
-
-    RPARENTHESES    reduce using rule 16 (masargumentos -> COMMA variosargumentos .)
-
-
-state 76
-
-    (12) variosargumentos -> LOCALVAR .
-    (13) variosargumentos -> LOCALVAR . EQUAL datos
-    (14) variosargumentos -> LOCALVAR . masargumentos
-    (15) variosargumentos -> LOCALVAR . EQUAL datos masargumentos
-    (16) masargumentos -> . COMMA variosargumentos
-
-    RPARENTHESES    reduce using rule 12 (variosargumentos -> LOCALVAR .)
-    EQUAL           shift and go to state 83
-    COMMA           shift and go to state 61
-
-    masargumentos                  shift and go to state 60
-
-state 77
-
-    (5) funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo . END
-    (6) funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo . retornar END
-    (17) retornar -> . RETURN LOCALVAR
-    (18) retornar -> . RETURN datos
-
-    END             shift and go to state 84
-    RETURN          shift and go to state 86
-
-    retornar                       shift and go to state 85
-
-state 78
-
-    (33) elementoHash -> datos EQUAL GREATERTHAN datos . maselementos
-    (34) maselementos -> .
-    (35) maselementos -> . COMMA elementoHash maselementos
-
-  ! shift/reduce conflict for COMMA resolved as shift
-    RCURLYBRACKET   reduce using rule 34 (maselementos -> .)
-    COMMA           shift and go to state 88
-
-  ! COMMA           [ reduce using rule 34 (maselementos -> .) ]
-
-    maselementos                   shift and go to state 87
-
-state 79
-
-    (38) funcionesHash -> INCLUDE QUESTIONMARK LPARENTHESES datos . RPARENTHESES
+    (8) funcion -> DEF LOCALVAR LPARENTHESES argumentos . RPARENTHESES cuerpo END
+    (9) funcion -> DEF LOCALVAR LPARENTHESES argumentos . RPARENTHESES cuerpo retornar END
 
     RPARENTHESES    shift and go to state 89
 
 
+state 65
+
+    (10) argumentos -> variosargumentos .
+
+    RPARENTHESES    reduce using rule 10 (argumentos -> variosargumentos .)
+
+
+state 66
+
+    (11) argumentos -> MULTIPLY . LOCALVAR
+
+    LOCALVAR        shift and go to state 90
+
+
+state 67
+
+    (12) argumentos -> TWOSTARS . LOCALVAR
+
+    LOCALVAR        shift and go to state 91
+
+
+state 68
+
+    (54) if -> IF datosvarios operadores datosvarios . cuerpo END
+    (55) if -> IF datosvarios operadores datosvarios . cuerpo else
+    (32) cuerpo -> . declaracion
+    (33) cuerpo -> . loop
+    (34) cuerpo -> . impresion
+    (23) declaracion -> . tiposvariables EQUAL datos
+    (24) declaracion -> . tiposvariables EQUAL estructuras
+    (22) loop -> . FOR LOCALVAR IN rango cuerpo END
+    (46) impresion -> . PUTS datos
+    (47) impresion -> . PRINT datos
+    (48) impresion -> . PUTS LOCALVAR
+    (49) impresion -> . PRINT LOCALVAR
+    (50) impresion -> . PUTS masopciones
+    (51) impresion -> . PRINT masopciones
+    (25) tiposvariables -> . VAR
+    (26) tiposvariables -> . LOCALVAR
+    (27) tiposvariables -> . CONSTANT
+
+    FOR             shift and go to state 10
+    PUTS            shift and go to state 12
+    PRINT           shift and go to state 13
+    VAR             shift and go to state 16
+    LOCALVAR        shift and go to state 11
+    CONSTANT        shift and go to state 17
+
+    cuerpo                         shift and go to state 92
+    declaracion                    shift and go to state 75
+    loop                           shift and go to state 76
+    impresion                      shift and go to state 77
+    tiposvariables                 shift and go to state 78
+
+state 69
+
+    (60) operadores -> EXCLAMATION EQUAL .
+
+    NUMBER          reduce using rule 60 (operadores -> EXCLAMATION EQUAL .)
+    FLOAT           reduce using rule 60 (operadores -> EXCLAMATION EQUAL .)
+    STRING          reduce using rule 60 (operadores -> EXCLAMATION EQUAL .)
+    VAR             reduce using rule 60 (operadores -> EXCLAMATION EQUAL .)
+    LOCALVAR        reduce using rule 60 (operadores -> EXCLAMATION EQUAL .)
+    CONSTANT        reduce using rule 60 (operadores -> EXCLAMATION EQUAL .)
+
+
+state 70
+
+    (52) array -> tiposvariables EQUAL LBRACKET datosarray RBRACKET .
+
+    $end            reduce using rule 52 (array -> tiposvariables EQUAL LBRACKET datosarray RBRACKET .)
+
+
+state 71
+
+    (67) datosarray -> datosarray COMMA . datosvarios
+    (64) datosvarios -> . datos
+    (65) datosvarios -> . tiposvariables
+    (28) datos -> . NUMBER
+    (29) datos -> . FLOAT
+    (30) datos -> . STRING
+    (25) tiposvariables -> . VAR
+    (26) tiposvariables -> . LOCALVAR
+    (27) tiposvariables -> . CONSTANT
+
+    NUMBER          shift and go to state 24
+    FLOAT           shift and go to state 25
+    STRING          shift and go to state 26
+    VAR             shift and go to state 16
+    LOCALVAR        shift and go to state 11
+    CONSTANT        shift and go to state 17
+
+    datosvarios                    shift and go to state 93
+    datos                          shift and go to state 32
+    tiposvariables                 shift and go to state 33
+
+state 72
+
+    (35) hash -> LCURLYBRACKET elementoHash RCURLYBRACKET . masopciones
+    (39) masopciones -> .
+    (40) masopciones -> . LOCALVAR DOT funcionesHash masopciones
+
+    $end            reduce using rule 39 (masopciones -> .)
+    END             reduce using rule 39 (masopciones -> .)
+    ELSE            reduce using rule 39 (masopciones -> .)
+    RETURN          reduce using rule 39 (masopciones -> .)
+    LOCALVAR        shift and go to state 81
+
+    masopciones                    shift and go to state 94
+
+state 73
+
+    (36) elementoHash -> datos EQUAL . GREATERTHAN datos maselementos
+
+    GREATERTHAN     shift and go to state 95
+
+
+state 74
+
+    (22) loop -> FOR LOCALVAR IN rango cuerpo . END
+
+    END             shift and go to state 96
+
+
+state 75
+
+    (32) cuerpo -> declaracion .
+
+    END             reduce using rule 32 (cuerpo -> declaracion .)
+    ELSE            reduce using rule 32 (cuerpo -> declaracion .)
+    RETURN          reduce using rule 32 (cuerpo -> declaracion .)
+
+
+state 76
+
+    (33) cuerpo -> loop .
+
+    END             reduce using rule 33 (cuerpo -> loop .)
+    ELSE            reduce using rule 33 (cuerpo -> loop .)
+    RETURN          reduce using rule 33 (cuerpo -> loop .)
+
+
+state 77
+
+    (34) cuerpo -> impresion .
+
+    END             reduce using rule 34 (cuerpo -> impresion .)
+    ELSE            reduce using rule 34 (cuerpo -> impresion .)
+    RETURN          reduce using rule 34 (cuerpo -> impresion .)
+
+
+state 78
+
+    (23) declaracion -> tiposvariables . EQUAL datos
+    (24) declaracion -> tiposvariables . EQUAL estructuras
+
+    EQUAL           shift and go to state 97
+
+
+state 79
+
+    (44) rango -> NUMBER RANGEINCLUSIVE . NUMBER
+
+    NUMBER          shift and go to state 98
+
+
 state 80
 
-    (39) funcionesHash -> DELETE LPARENTHESES datos RPARENTHESES .
+    (45) rango -> NUMBER RANGEXCLUSIVE . NUMBER
 
-    LOCALVAR        reduce using rule 39 (funcionesHash -> DELETE LPARENTHESES datos RPARENTHESES .)
-    $end            reduce using rule 39 (funcionesHash -> DELETE LPARENTHESES datos RPARENTHESES .)
-    END             reduce using rule 39 (funcionesHash -> DELETE LPARENTHESES datos RPARENTHESES .)
-    RETURN          reduce using rule 39 (funcionesHash -> DELETE LPARENTHESES datos RPARENTHESES .)
+    NUMBER          shift and go to state 99
 
 
 state 81
 
-    (10) argumentos -> LOCALVAR EQUAL LCURLYBRACKET RCURLYBRACKET .
+    (40) masopciones -> LOCALVAR . DOT funcionesHash masopciones
 
-    RPARENTHESES    reduce using rule 10 (argumentos -> LOCALVAR EQUAL LCURLYBRACKET RCURLYBRACKET .)
+    DOT             shift and go to state 41
 
 
 state 82
 
-    (15) variosargumentos -> LOCALVAR EQUAL datos masargumentos .
+    (40) masopciones -> LOCALVAR DOT funcionesHash masopciones .
 
-    RPARENTHESES    reduce using rule 15 (variosargumentos -> LOCALVAR EQUAL datos masargumentos .)
+    $end            reduce using rule 40 (masopciones -> LOCALVAR DOT funcionesHash masopciones .)
+    END             reduce using rule 40 (masopciones -> LOCALVAR DOT funcionesHash masopciones .)
+    ELSE            reduce using rule 40 (masopciones -> LOCALVAR DOT funcionesHash masopciones .)
+    RETURN          reduce using rule 40 (masopciones -> LOCALVAR DOT funcionesHash masopciones .)
 
 
 state 83
 
-    (13) variosargumentos -> LOCALVAR EQUAL . datos
-    (15) variosargumentos -> LOCALVAR EQUAL . datos masargumentos
-    (25) datos -> . NUMBER
-    (26) datos -> . FLOAT
-    (27) datos -> . STRING
+    (41) funcionesHash -> INCLUDE QUESTIONMARK . LPARENTHESES datos RPARENTHESES
 
-    NUMBER          shift and go to state 19
-    FLOAT           shift and go to state 20
-    STRING          shift and go to state 21
+    LPARENTHESES    shift and go to state 100
 
-    datos                          shift and go to state 73
 
 state 84
 
-    (5) funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo END .
+    (42) funcionesHash -> DELETE LPARENTHESES . datos RPARENTHESES
+    (28) datos -> . NUMBER
+    (29) datos -> . FLOAT
+    (30) datos -> . STRING
 
-    $end            reduce using rule 5 (funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo END .)
+    NUMBER          shift and go to state 24
+    FLOAT           shift and go to state 25
+    STRING          shift and go to state 26
 
+    datos                          shift and go to state 101
 
 state 85
 
-    (6) funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo retornar . END
+    (13) argumentos -> LOCALVAR EQUAL . LCURLYBRACKET RCURLYBRACKET
+    (16) variosargumentos -> LOCALVAR EQUAL . datos
+    (18) variosargumentos -> LOCALVAR EQUAL . datos masargumentos
+    (28) datos -> . NUMBER
+    (29) datos -> . FLOAT
+    (30) datos -> . STRING
 
-    END             shift and go to state 90
+    LCURLYBRACKET   shift and go to state 102
+    NUMBER          shift and go to state 24
+    FLOAT           shift and go to state 25
+    STRING          shift and go to state 26
 
+    datos                          shift and go to state 103
 
 state 86
 
-    (17) retornar -> RETURN . LOCALVAR
-    (18) retornar -> RETURN . datos
-    (25) datos -> . NUMBER
-    (26) datos -> . FLOAT
-    (27) datos -> . STRING
+    (14) argumentos -> LOCALVAR TWOPOINTS . datos
+    (28) datos -> . NUMBER
+    (29) datos -> . FLOAT
+    (30) datos -> . STRING
 
-    LOCALVAR        shift and go to state 91
-    NUMBER          shift and go to state 19
-    FLOAT           shift and go to state 20
-    STRING          shift and go to state 21
+    NUMBER          shift and go to state 24
+    FLOAT           shift and go to state 25
+    STRING          shift and go to state 26
 
-    datos                          shift and go to state 92
+    datos                          shift and go to state 104
 
 state 87
 
-    (33) elementoHash -> datos EQUAL GREATERTHAN datos maselementos .
+    (17) variosargumentos -> LOCALVAR masargumentos .
 
-    RCURLYBRACKET   reduce using rule 33 (elementoHash -> datos EQUAL GREATERTHAN datos maselementos .)
-    COMMA           reduce using rule 33 (elementoHash -> datos EQUAL GREATERTHAN datos maselementos .)
+    RPARENTHESES    reduce using rule 17 (variosargumentos -> LOCALVAR masargumentos .)
 
 
 state 88
 
-    (35) maselementos -> COMMA . elementoHash maselementos
-    (33) elementoHash -> . datos EQUAL GREATERTHAN datos maselementos
-    (25) datos -> . NUMBER
-    (26) datos -> . FLOAT
-    (27) datos -> . STRING
+    (19) masargumentos -> COMMA . variosargumentos
+    (15) variosargumentos -> . LOCALVAR
+    (16) variosargumentos -> . LOCALVAR EQUAL datos
+    (17) variosargumentos -> . LOCALVAR masargumentos
+    (18) variosargumentos -> . LOCALVAR EQUAL datos masargumentos
 
-    NUMBER          shift and go to state 19
-    FLOAT           shift and go to state 20
-    STRING          shift and go to state 21
+    LOCALVAR        shift and go to state 106
 
-    elementoHash                   shift and go to state 93
-    datos                          shift and go to state 34
+    variosargumentos               shift and go to state 105
 
 state 89
 
-    (38) funcionesHash -> INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES .
+    (8) funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES . cuerpo END
+    (9) funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES . cuerpo retornar END
+    (32) cuerpo -> . declaracion
+    (33) cuerpo -> . loop
+    (34) cuerpo -> . impresion
+    (23) declaracion -> . tiposvariables EQUAL datos
+    (24) declaracion -> . tiposvariables EQUAL estructuras
+    (22) loop -> . FOR LOCALVAR IN rango cuerpo END
+    (46) impresion -> . PUTS datos
+    (47) impresion -> . PRINT datos
+    (48) impresion -> . PUTS LOCALVAR
+    (49) impresion -> . PRINT LOCALVAR
+    (50) impresion -> . PUTS masopciones
+    (51) impresion -> . PRINT masopciones
+    (25) tiposvariables -> . VAR
+    (26) tiposvariables -> . LOCALVAR
+    (27) tiposvariables -> . CONSTANT
 
-    LOCALVAR        reduce using rule 38 (funcionesHash -> INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES .)
-    $end            reduce using rule 38 (funcionesHash -> INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES .)
-    END             reduce using rule 38 (funcionesHash -> INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES .)
-    RETURN          reduce using rule 38 (funcionesHash -> INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES .)
+    FOR             shift and go to state 10
+    PUTS            shift and go to state 12
+    PRINT           shift and go to state 13
+    VAR             shift and go to state 16
+    LOCALVAR        shift and go to state 11
+    CONSTANT        shift and go to state 17
 
+    cuerpo                         shift and go to state 107
+    declaracion                    shift and go to state 75
+    loop                           shift and go to state 76
+    impresion                      shift and go to state 77
+    tiposvariables                 shift and go to state 78
 
 state 90
 
-    (6) funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo retornar END .
+    (11) argumentos -> MULTIPLY LOCALVAR .
 
-    $end            reduce using rule 6 (funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo retornar END .)
+    RPARENTHESES    reduce using rule 11 (argumentos -> MULTIPLY LOCALVAR .)
 
 
 state 91
 
-    (17) retornar -> RETURN LOCALVAR .
+    (12) argumentos -> TWOSTARS LOCALVAR .
 
-    END             reduce using rule 17 (retornar -> RETURN LOCALVAR .)
+    RPARENTHESES    reduce using rule 12 (argumentos -> TWOSTARS LOCALVAR .)
 
 
 state 92
 
-    (18) retornar -> RETURN datos .
+    (54) if -> IF datosvarios operadores datosvarios cuerpo . END
+    (55) if -> IF datosvarios operadores datosvarios cuerpo . else
+    (56) else -> . ELSE cuerpo END
 
-    END             reduce using rule 18 (retornar -> RETURN datos .)
+    END             shift and go to state 108
+    ELSE            shift and go to state 110
 
+    else                           shift and go to state 109
 
 state 93
 
-    (35) maselementos -> COMMA elementoHash . maselementos
-    (34) maselementos -> .
-    (35) maselementos -> . COMMA elementoHash maselementos
+    (67) datosarray -> datosarray COMMA datosvarios .
 
-  ! shift/reduce conflict for COMMA resolved as shift
-    RCURLYBRACKET   reduce using rule 34 (maselementos -> .)
-    COMMA           shift and go to state 88
+    RBRACKET        reduce using rule 67 (datosarray -> datosarray COMMA datosvarios .)
+    COMMA           reduce using rule 67 (datosarray -> datosarray COMMA datosvarios .)
 
-  ! COMMA           [ reduce using rule 34 (maselementos -> .) ]
-
-    maselementos                   shift and go to state 94
 
 state 94
 
-    (35) maselementos -> COMMA elementoHash maselementos .
+    (35) hash -> LCURLYBRACKET elementoHash RCURLYBRACKET masopciones .
 
-    COMMA           reduce using rule 35 (maselementos -> COMMA elementoHash maselementos .)
-    RCURLYBRACKET   reduce using rule 35 (maselementos -> COMMA elementoHash maselementos .)
+    $end            reduce using rule 35 (hash -> LCURLYBRACKET elementoHash RCURLYBRACKET masopciones .)
+    END             reduce using rule 35 (hash -> LCURLYBRACKET elementoHash RCURLYBRACKET masopciones .)
+    ELSE            reduce using rule 35 (hash -> LCURLYBRACKET elementoHash RCURLYBRACKET masopciones .)
+    RETURN          reduce using rule 35 (hash -> LCURLYBRACKET elementoHash RCURLYBRACKET masopciones .)
+
+
+state 95
+
+    (36) elementoHash -> datos EQUAL GREATERTHAN . datos maselementos
+    (28) datos -> . NUMBER
+    (29) datos -> . FLOAT
+    (30) datos -> . STRING
+
+    NUMBER          shift and go to state 24
+    FLOAT           shift and go to state 25
+    STRING          shift and go to state 26
+
+    datos                          shift and go to state 111
+
+state 96
+
+    (22) loop -> FOR LOCALVAR IN rango cuerpo END .
+
+    $end            reduce using rule 22 (loop -> FOR LOCALVAR IN rango cuerpo END .)
+    END             reduce using rule 22 (loop -> FOR LOCALVAR IN rango cuerpo END .)
+    ELSE            reduce using rule 22 (loop -> FOR LOCALVAR IN rango cuerpo END .)
+    RETURN          reduce using rule 22 (loop -> FOR LOCALVAR IN rango cuerpo END .)
+
+
+state 97
+
+    (23) declaracion -> tiposvariables EQUAL . datos
+    (24) declaracion -> tiposvariables EQUAL . estructuras
+    (28) datos -> . NUMBER
+    (29) datos -> . FLOAT
+    (30) datos -> . STRING
+    (31) estructuras -> . hash
+    (35) hash -> . LCURLYBRACKET elementoHash RCURLYBRACKET masopciones
+
+    NUMBER          shift and go to state 24
+    FLOAT           shift and go to state 25
+    STRING          shift and go to state 26
+    LCURLYBRACKET   shift and go to state 38
+
+    datos                          shift and go to state 34
+    estructuras                    shift and go to state 35
+    hash                           shift and go to state 37
+
+state 98
+
+    (44) rango -> NUMBER RANGEINCLUSIVE NUMBER .
+
+    FOR             reduce using rule 44 (rango -> NUMBER RANGEINCLUSIVE NUMBER .)
+    PUTS            reduce using rule 44 (rango -> NUMBER RANGEINCLUSIVE NUMBER .)
+    PRINT           reduce using rule 44 (rango -> NUMBER RANGEINCLUSIVE NUMBER .)
+    VAR             reduce using rule 44 (rango -> NUMBER RANGEINCLUSIVE NUMBER .)
+    LOCALVAR        reduce using rule 44 (rango -> NUMBER RANGEINCLUSIVE NUMBER .)
+    CONSTANT        reduce using rule 44 (rango -> NUMBER RANGEINCLUSIVE NUMBER .)
+
+
+state 99
+
+    (45) rango -> NUMBER RANGEXCLUSIVE NUMBER .
+
+    FOR             reduce using rule 45 (rango -> NUMBER RANGEXCLUSIVE NUMBER .)
+    PUTS            reduce using rule 45 (rango -> NUMBER RANGEXCLUSIVE NUMBER .)
+    PRINT           reduce using rule 45 (rango -> NUMBER RANGEXCLUSIVE NUMBER .)
+    VAR             reduce using rule 45 (rango -> NUMBER RANGEXCLUSIVE NUMBER .)
+    LOCALVAR        reduce using rule 45 (rango -> NUMBER RANGEXCLUSIVE NUMBER .)
+    CONSTANT        reduce using rule 45 (rango -> NUMBER RANGEXCLUSIVE NUMBER .)
+
+
+state 100
+
+    (41) funcionesHash -> INCLUDE QUESTIONMARK LPARENTHESES . datos RPARENTHESES
+    (28) datos -> . NUMBER
+    (29) datos -> . FLOAT
+    (30) datos -> . STRING
+
+    NUMBER          shift and go to state 24
+    FLOAT           shift and go to state 25
+    STRING          shift and go to state 26
+
+    datos                          shift and go to state 112
+
+state 101
+
+    (42) funcionesHash -> DELETE LPARENTHESES datos . RPARENTHESES
+
+    RPARENTHESES    shift and go to state 113
+
+
+state 102
+
+    (13) argumentos -> LOCALVAR EQUAL LCURLYBRACKET . RCURLYBRACKET
+
+    RCURLYBRACKET   shift and go to state 114
+
+
+state 103
+
+    (16) variosargumentos -> LOCALVAR EQUAL datos .
+    (18) variosargumentos -> LOCALVAR EQUAL datos . masargumentos
+    (19) masargumentos -> . COMMA variosargumentos
+
+    RPARENTHESES    reduce using rule 16 (variosargumentos -> LOCALVAR EQUAL datos .)
+    COMMA           shift and go to state 88
+
+    masargumentos                  shift and go to state 115
+
+state 104
+
+    (14) argumentos -> LOCALVAR TWOPOINTS datos .
+
+    RPARENTHESES    reduce using rule 14 (argumentos -> LOCALVAR TWOPOINTS datos .)
+
+
+state 105
+
+    (19) masargumentos -> COMMA variosargumentos .
+
+    RPARENTHESES    reduce using rule 19 (masargumentos -> COMMA variosargumentos .)
+
+
+state 106
+
+    (15) variosargumentos -> LOCALVAR .
+    (16) variosargumentos -> LOCALVAR . EQUAL datos
+    (17) variosargumentos -> LOCALVAR . masargumentos
+    (18) variosargumentos -> LOCALVAR . EQUAL datos masargumentos
+    (19) masargumentos -> . COMMA variosargumentos
+
+    RPARENTHESES    reduce using rule 15 (variosargumentos -> LOCALVAR .)
+    EQUAL           shift and go to state 116
+    COMMA           shift and go to state 88
+
+    masargumentos                  shift and go to state 87
+
+state 107
+
+    (8) funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo . END
+    (9) funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo . retornar END
+    (20) retornar -> . RETURN LOCALVAR
+    (21) retornar -> . RETURN datos
+
+    END             shift and go to state 117
+    RETURN          shift and go to state 119
+
+    retornar                       shift and go to state 118
+
+state 108
+
+    (54) if -> IF datosvarios operadores datosvarios cuerpo END .
+
+    $end            reduce using rule 54 (if -> IF datosvarios operadores datosvarios cuerpo END .)
+
+
+state 109
+
+    (55) if -> IF datosvarios operadores datosvarios cuerpo else .
+
+    $end            reduce using rule 55 (if -> IF datosvarios operadores datosvarios cuerpo else .)
+
+
+state 110
+
+    (56) else -> ELSE . cuerpo END
+    (32) cuerpo -> . declaracion
+    (33) cuerpo -> . loop
+    (34) cuerpo -> . impresion
+    (23) declaracion -> . tiposvariables EQUAL datos
+    (24) declaracion -> . tiposvariables EQUAL estructuras
+    (22) loop -> . FOR LOCALVAR IN rango cuerpo END
+    (46) impresion -> . PUTS datos
+    (47) impresion -> . PRINT datos
+    (48) impresion -> . PUTS LOCALVAR
+    (49) impresion -> . PRINT LOCALVAR
+    (50) impresion -> . PUTS masopciones
+    (51) impresion -> . PRINT masopciones
+    (25) tiposvariables -> . VAR
+    (26) tiposvariables -> . LOCALVAR
+    (27) tiposvariables -> . CONSTANT
+
+    FOR             shift and go to state 10
+    PUTS            shift and go to state 12
+    PRINT           shift and go to state 13
+    VAR             shift and go to state 16
+    LOCALVAR        shift and go to state 11
+    CONSTANT        shift and go to state 17
+
+    cuerpo                         shift and go to state 120
+    declaracion                    shift and go to state 75
+    loop                           shift and go to state 76
+    impresion                      shift and go to state 77
+    tiposvariables                 shift and go to state 78
+
+state 111
+
+    (36) elementoHash -> datos EQUAL GREATERTHAN datos . maselementos
+    (37) maselementos -> .
+    (38) maselementos -> . COMMA elementoHash maselementos
+
+  ! shift/reduce conflict for COMMA resolved as shift
+    RCURLYBRACKET   reduce using rule 37 (maselementos -> .)
+    COMMA           shift and go to state 122
+
+  ! COMMA           [ reduce using rule 37 (maselementos -> .) ]
+
+    maselementos                   shift and go to state 121
+
+state 112
+
+    (41) funcionesHash -> INCLUDE QUESTIONMARK LPARENTHESES datos . RPARENTHESES
+
+    RPARENTHESES    shift and go to state 123
+
+
+state 113
+
+    (42) funcionesHash -> DELETE LPARENTHESES datos RPARENTHESES .
+
+    LOCALVAR        reduce using rule 42 (funcionesHash -> DELETE LPARENTHESES datos RPARENTHESES .)
+    $end            reduce using rule 42 (funcionesHash -> DELETE LPARENTHESES datos RPARENTHESES .)
+    END             reduce using rule 42 (funcionesHash -> DELETE LPARENTHESES datos RPARENTHESES .)
+    ELSE            reduce using rule 42 (funcionesHash -> DELETE LPARENTHESES datos RPARENTHESES .)
+    RETURN          reduce using rule 42 (funcionesHash -> DELETE LPARENTHESES datos RPARENTHESES .)
+
+
+state 114
+
+    (13) argumentos -> LOCALVAR EQUAL LCURLYBRACKET RCURLYBRACKET .
+
+    RPARENTHESES    reduce using rule 13 (argumentos -> LOCALVAR EQUAL LCURLYBRACKET RCURLYBRACKET .)
+
+
+state 115
+
+    (18) variosargumentos -> LOCALVAR EQUAL datos masargumentos .
+
+    RPARENTHESES    reduce using rule 18 (variosargumentos -> LOCALVAR EQUAL datos masargumentos .)
+
+
+state 116
+
+    (16) variosargumentos -> LOCALVAR EQUAL . datos
+    (18) variosargumentos -> LOCALVAR EQUAL . datos masargumentos
+    (28) datos -> . NUMBER
+    (29) datos -> . FLOAT
+    (30) datos -> . STRING
+
+    NUMBER          shift and go to state 24
+    FLOAT           shift and go to state 25
+    STRING          shift and go to state 26
+
+    datos                          shift and go to state 103
+
+state 117
+
+    (8) funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo END .
+
+    $end            reduce using rule 8 (funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo END .)
+
+
+state 118
+
+    (9) funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo retornar . END
+
+    END             shift and go to state 124
+
+
+state 119
+
+    (20) retornar -> RETURN . LOCALVAR
+    (21) retornar -> RETURN . datos
+    (28) datos -> . NUMBER
+    (29) datos -> . FLOAT
+    (30) datos -> . STRING
+
+    LOCALVAR        shift and go to state 125
+    NUMBER          shift and go to state 24
+    FLOAT           shift and go to state 25
+    STRING          shift and go to state 26
+
+    datos                          shift and go to state 126
+
+state 120
+
+    (56) else -> ELSE cuerpo . END
+
+    END             shift and go to state 127
+
+
+state 121
+
+    (36) elementoHash -> datos EQUAL GREATERTHAN datos maselementos .
+
+    RCURLYBRACKET   reduce using rule 36 (elementoHash -> datos EQUAL GREATERTHAN datos maselementos .)
+    COMMA           reduce using rule 36 (elementoHash -> datos EQUAL GREATERTHAN datos maselementos .)
+
+
+state 122
+
+    (38) maselementos -> COMMA . elementoHash maselementos
+    (36) elementoHash -> . datos EQUAL GREATERTHAN datos maselementos
+    (28) datos -> . NUMBER
+    (29) datos -> . FLOAT
+    (30) datos -> . STRING
+
+    NUMBER          shift and go to state 24
+    FLOAT           shift and go to state 25
+    STRING          shift and go to state 26
+
+    elementoHash                   shift and go to state 128
+    datos                          shift and go to state 55
+
+state 123
+
+    (41) funcionesHash -> INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES .
+
+    LOCALVAR        reduce using rule 41 (funcionesHash -> INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES .)
+    $end            reduce using rule 41 (funcionesHash -> INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES .)
+    END             reduce using rule 41 (funcionesHash -> INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES .)
+    ELSE            reduce using rule 41 (funcionesHash -> INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES .)
+    RETURN          reduce using rule 41 (funcionesHash -> INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES .)
+
+
+state 124
+
+    (9) funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo retornar END .
+
+    $end            reduce using rule 9 (funcion -> DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo retornar END .)
+
+
+state 125
+
+    (20) retornar -> RETURN LOCALVAR .
+
+    END             reduce using rule 20 (retornar -> RETURN LOCALVAR .)
+
+
+state 126
+
+    (21) retornar -> RETURN datos .
+
+    END             reduce using rule 21 (retornar -> RETURN datos .)
+
+
+state 127
+
+    (56) else -> ELSE cuerpo END .
+
+    $end            reduce using rule 56 (else -> ELSE cuerpo END .)
+
+
+state 128
+
+    (38) maselementos -> COMMA elementoHash . maselementos
+    (37) maselementos -> .
+    (38) maselementos -> . COMMA elementoHash maselementos
+
+  ! shift/reduce conflict for COMMA resolved as shift
+    RCURLYBRACKET   reduce using rule 37 (maselementos -> .)
+    COMMA           shift and go to state 122
+
+  ! COMMA           [ reduce using rule 37 (maselementos -> .) ]
+
+    maselementos                   shift and go to state 129
+
+state 129
+
+    (38) maselementos -> COMMA elementoHash maselementos .
+
+    COMMA           reduce using rule 38 (maselementos -> COMMA elementoHash maselementos .)
+    RCURLYBRACKET   reduce using rule 38 (maselementos -> COMMA elementoHash maselementos .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for COMMA in state 78 resolved as shift
-WARNING: shift/reduce conflict for COMMA in state 93 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 111 resolved as shift
+WARNING: shift/reduce conflict for COMMA in state 128 resolved as shift
