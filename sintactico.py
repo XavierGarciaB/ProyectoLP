@@ -47,11 +47,6 @@ def p_datos(p):
               | FLOAT
               | STRING '''
 
-def p_variables(p):
-    '''variables : NUMBER
-              | FLOAT
-              | STRING '''
-
 def p_estructuras(p):
     'estructuras : hash'
 
@@ -64,7 +59,7 @@ def p_hash(p):
     'hash : LCURLYBRACKET elementoHash RCURLYBRACKET masopciones'
 
 def p_elementoHash(p):
-    'elementoHash : variables EQUAL GREATERTHAN variables maselementos'
+    'elementoHash : datos EQUAL GREATERTHAN datos maselementos'
 
 def p_maselementos(p):
     '''maselementos :
@@ -72,11 +67,11 @@ def p_maselementos(p):
 
 def p_masopciones(p):
     '''masopciones :
-                   | VAR DOT funcionesHash masopciones'''
+                   | LOCALVAR DOT funcionesHash masopciones'''
 
 def p_funciones_hash(p):
-    '''funcionesHash : INCLUDE QUESTIONMARK LPARENTHESES variables RPARENTHESES
-                     | DELETE LPARENTHESES variables RPARENTHESES
+    '''funcionesHash : INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES
+                     | DELETE LPARENTHESES datos RPARENTHESES
                      | KEYS'''
 
 def p_rango(p):
@@ -86,7 +81,11 @@ def p_rango(p):
 
 def p_impresion(p):
     '''impresion : PUTS datos
-                 | PRINT datos'''
+                 | PRINT datos
+                 | PUTS LOCALVAR
+                 | PRINT LOCALVAR
+                 | PUTS masopciones
+                 | PRINT masopciones'''
 #Adriana Riofrio
 
 
