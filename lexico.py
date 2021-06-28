@@ -37,7 +37,9 @@ reserved = {
     'or': 'OR',
     'return': 'RETURN',
     'true': 'TRUE',
-    'until': 'UNTIL'
+    'until': 'UNTIL',
+    'take' : 'TAKE',
+    'drop' : 'DROP'
     #Luis Anchundia
 
 

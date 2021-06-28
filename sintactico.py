@@ -8,7 +8,7 @@ def p_inicio(p):
             | funcion
             | if
             | array
-            | accederarray
+            | operacionarray
             | unless
             | set
             | operacionSet'''
@@ -126,7 +126,15 @@ def p_datosarray(p):
                     | datosarray COMMA datosvarios'''
 
 def p_accederarray(p):
-    'accederarray : tiposvariables LBRACKET NUMBER RBRACKET'
+    'operacionarray : tiposvariables LBRACKET NUMBER RBRACKET'
+
+def p_arraynprimeros(p):
+    'operacionarray : tiposvariables DOT TAKE LPARENTHESES NUMBER RPARENTHESES'
+
+def p_arraynultimos(p):
+    'operacionarray : tiposvariables DOT DROP LPARENTHESES NUMBER RPARENTHESES '
+
+
 
 #Luis Anchundia
 
