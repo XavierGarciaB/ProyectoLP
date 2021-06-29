@@ -8,10 +8,10 @@ def p_inicio(p):
             | funcion
             | if
             | array
-            | accederarray
             | unless
             | set
-            | operacionSet '''
+            | operacionSet
+            | operacionarray'''
 
 def p_funcion(p):
     '''funcion : DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo END
@@ -125,9 +125,14 @@ def p_datosarray(p):
     '''datosarray : datosvarios
                     | datosarray COMMA datosvarios'''
 
-def p_accederarray(p):
-    'accederarray : tiposvariables LBRACKET NUMBER RBRACKET'
+def p_operacionarray(p):
+    'operacionarray : tiposvariables LBRACKET NUMBER RBRACKET'
 
+def p_arraynprimerosnumeros(p):
+    'operacionarray : tiposvariables DOT TAKE LPARENTHESES NUMBER RPARENTHESES '
+
+def p_arraynultimosnumeros(p):
+    'operacionarray : tiposvariables DOT DROP LPARENTHESES NUMBER RPARENTHESES'
 #Luis Anchundia
 
 
@@ -200,6 +205,11 @@ pruebas = [
     "set[1,2].add(3)",
     "set[1,2].delete(1)",
     "set[1,2].clear",
+    "if var==5 saludo='Buenos dias' end ",
+    "arreglo = [25, 54, 39]",
+    "arreglo[1]",
+    "arreglo.take(2)",
+    "arreglo.drop(4)",
     ""
 ]
 
