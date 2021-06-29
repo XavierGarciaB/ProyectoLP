@@ -64,7 +64,6 @@ tokens = (
     'DOUBLEEQUAL',
     'TRIPLEEQUAL',
     'ALERT',
-
     #Xavier Garcia
 
     #Adriana Riofrio
@@ -327,7 +326,7 @@ def getTokens(lexer):
 
  # Build the lexer
 lexer = lex.lex()
-lineas = ["x=set[y,z]", ""]
+lineas = ["unless x===3 puts 'hola' else puts 'adios' end", ""]
 cont = 0
 linea = lineas[cont]
 while linea != "":

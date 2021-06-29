@@ -8,10 +8,10 @@ def p_inicio(p):
             | funcion
             | if
             | array
-            | operacionarray
+            | accederarray
             | unless
             | set
-            | operacionSet'''
+            | operacionSet '''
 
 def p_funcion(p):
     '''funcion : DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo END
@@ -126,15 +126,7 @@ def p_datosarray(p):
                     | datosarray COMMA datosvarios'''
 
 def p_accederarray(p):
-    'operacionarray : tiposvariables LBRACKET NUMBER RBRACKET'
-
-def p_arraynprimeros(p):
-    'operacionarray : tiposvariables DOT TAKE LPARENTHESES NUMBER RPARENTHESES'
-
-def p_arraynultimos(p):
-    'operacionarray : tiposvariables DOT DROP LPARENTHESES NUMBER RPARENTHESES '
-
-
+    'accederarray : tiposvariables LBRACKET NUMBER RBRACKET'
 
 #Luis Anchundia
 
@@ -145,7 +137,7 @@ def p_unless(p):
 
 
 def p_condiciones_var(p):
-    '''condiciones : VAR operadores VAR'''
+    '''condiciones : tiposvariables operadores tiposvariables'''
 
 
 def p_condiciones_datos(p):
@@ -153,8 +145,8 @@ def p_condiciones_datos(p):
 
 
 def p_condiciones_mix(p):
-    '''condiciones : VAR operadores datos
-                   | datos operadores VAR'''
+    '''condiciones : tiposvariables operadores datos
+                   | datos operadores tiposvariables'''
 
 
 def p_set(p):
@@ -186,6 +178,7 @@ def p_operacionSet_limpiar(p):
 def p_operacionSet_eliminar(p):
     '''operacionSet : set DOT DELETE LPARENTHESES datos RPARENTHESES
                     | set DOT DELETE LPARENTHESES tiposvariables RPARENTHESES'''
+
 #Xavier Garcia
 
 
@@ -198,12 +191,30 @@ def p_error(p):
         print("Syntax error at EOF")
 # Build the parser
 
+
 parser = yacc.yacc()
-while True:
-    try:
-        s = input('>>')
-    except EOFError:
-        break
-    if not s: continue
-    result = parser.parse(s)
+
+pruebas = [
+    "unless x===3 x=10 else x=20 end",
+    "valores = set[1,2]",
+    "set[1,2].add(3)",
+    "set[1,2].delete(1)",
+    "set[1,2].clear",
+    ""
+]
+
+
+print("ALGORITMO DE PRUEBAS")
+cont = 0
+linea = pruebas[cont]
+while linea != "":
+    #try:
+    #    s = input('>>')
+    #except EOFError:
+    #    break
+    #if not s: continue
+    print(linea)
+    result = parser.parse(linea)
     print(result)
+    cont = cont + 1
+    linea = pruebas[cont]
