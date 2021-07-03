@@ -158,13 +158,62 @@ def p_operadores_matematicos(p):
 
 
 #Luis Anchundia
+#semantica para array
+
 def p_array(p):
-    '''array : tiposvariables EQUAL LBRACKET datosarray RBRACKET
-                | tiposvariables EQUAL LBRACKET RBRACKET'''
+    '''array : LBRACKET RBRACKET
+            | LBRACKET datosarray RBRACKET'''
+
+def p_datosvarios(p):
+    '''datosvarios : datos
+                | number
+                | VAR
+                | LOCALVAR'''
+
+def p_datosarray(p):
+    ''' datosarray : datosvarios
+                    | datosarray COMMA datosvarios'''
+
+def p_operacionarrayelemento(p):
+    'operacionarray : array LBRACKET INTEGER RBRACKET'
+
+def p_arraynprimerosnumeros(p):
+    'operacionarray : array DOT TAKE LPARENTHESES INTEGER RPARENTHESES '
+
+def p_arraynultimosnumeros(p):
+    'operacionarray : array DOT DROP LPARENTHESES INTEGER RPARENTHESES'
+
+def p_arraypush(p):
+    ''' operacionarray : array DOT push maspush'''
+def p_push(p):
+    ''' push : PUSH LPARENTHESES datosvarios RPARENTHESES
+            | '''
+
+def p_maspush(p):
+    ''' maspush :
+                | DOT push maspush'''
+def p_arrayeliminaruno(p):
+    ''' operacionarray : array DOT POP
+                        | array DOT POP LPARENTHESES INTEGER RPARENTHESES'''
+
+def p_arrayeliminarnposicion(p):
+    ' operacionarray : array DOT DELETE LPARENTHESES INTEGER RPARENTHESES'
+
+def p_arraylenght(p):
+    ' operacionarray : array DOT LENGTH LPARENTHESES RPARENTHESES '
+
+
+def p_arrayvacio(p):
+    ' operacionarray : array DOT EMPTY QUESTIONMARK'
+
+#semantica para if
+def p_datoscompletos(p):
+    ''' datoscompletos : datosvarios
+                        | tiposvariables'''
 
 def p_if(p):
-    '''if : IF datosvarios operadores datosvarios cuerpo END
-            | IF datosvarios operadores datosvarios cuerpo else '''
+    '''if : IF datoscompletos operadores datoscompletos cuerpo END
+            | IF datoscompletos operadores datoscompletos cuerpo else '''
 
 def p_else(p):
     'else : ELSE cuerpo END'
@@ -178,22 +227,6 @@ def p_operadores(p):
                  | GREQUAL
                  | LEQUAL'''
 
-def p_datosvarios(p):
-    '''datosvarios : datos
-                | tiposvariables'''
-
-def p_datosarray(p):
-    '''datosarray : datosvarios
-                    | datosarray COMMA datosvarios'''
-
-def p_operacionarray(p):
-    'operacionarray : LOCALVAR LBRACKET INTEGER RBRACKET'
-
-def p_arraynprimerosnumeros(p):
-    'operacionarray : LOCALVAR DOT TAKE LPARENTHESES INTEGER RPARENTHESES '
-
-def p_arraynultimosnumeros(p):
-    'operacionarray : LOCALVAR DOT DROP LPARENTHESES INTEGER RPARENTHESES'
 #Luis Anchundia
 
 
@@ -282,6 +315,11 @@ pruebas = [
     "puts 34.8",
     "var = (4-5)",
     "$variable = @var56 = var = 'meow'",
+    " [4,6,mia].push(4).push(6).push(4)",
+    " [4,6,mia].pop(4)",
+    "[a].delete(4)",
+    "[1,2].length()",
+    "[new,old].empty?",
     ""
 ]
 

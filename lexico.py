@@ -40,6 +40,10 @@ reserved = {
     'until': 'UNTIL',
     'take' : 'TAKE',
     'drop' : 'DROP',
+    'push' : 'PUSH',
+    'pop' : 'POP',
+    'length' : 'LENGTH',
+    'empty' : 'EMPTY'
     #Luis Anchundia
 
 
