@@ -39,14 +39,14 @@ reserved = {
     'true': 'TRUE',
     'until': 'UNTIL',
     'take' : 'TAKE',
-    'drop' : 'DROP'
+    'drop' : 'DROP',
     #Luis Anchundia
 
 
 }
 
 tokens = (
-    'NUMBER',
+    'INTEGER',
     #Xavier Garcia
     'EXCLAMATION',
     'PLUS',
@@ -197,8 +197,9 @@ def t_FLOAT(t):
     t.value = float(t.value)
     return t
 
+
 def t_STRING(t):
-    r'(".*"|\'.*\')'
+    r'("[^"]*"|\'[^\']*\')'
     t.type = reserved.get(t.value, 'STRING')
     return t
 
@@ -207,7 +208,7 @@ def t_STRING(t):
 
 
 # A regular expression rule with some action code
-def t_NUMBER(t):
+def t_INTEGER(t):
     r'\d+'
     t.value = int(t.value)
     return t
@@ -305,7 +306,7 @@ def t_COMMENT(t):
 
 def t_BOOLEAN(t):
     r'(true|false)'
-    t.type = reserved.get(t.value, 'BOOLEAN')
+    t.type = reserved.get(t.value,'BOOLEAN')
     return t
 #Luis Anchundia
 
@@ -326,7 +327,7 @@ def getTokens(lexer):
 
  # Build the lexer
 lexer = lex.lex()
-lineas = ["unless x===3 puts 'hola' else puts 'adios' end", ""]
+lineas = [ ":no ",""]
 cont = 0
 linea = lineas[cont]
 while linea != "":

@@ -2,16 +2,9 @@ import ply.yacc as yacc
 from lexico import tokens
 #Adriana Riofrio
 def p_inicio(p):
-    '''inicio : declaracion
-            | loop
-            | impresion
-            | funcion
-            | if
-            | array
-            | unless
-            | set
-            | operacionSet
-            | operacionarray'''
+    '''inicio : cuerpo
+              | funcion
+            '''
 
 def p_funcion(p):
     '''funcion : DEF LOCALVAR LPARENTHESES argumentos RPARENTHESES cuerpo END
@@ -36,67 +29,133 @@ def p_masargumentos(p):
 def p_retornar(p):
     '''retornar : RETURN LOCALVAR
                 | RETURN datos'''
+def p_cuerpo(p):
+    '''cuerpo : declaracion cuerpo
+              | asignacion cuerpo
+              | loop cuerpo
+              | estructurasDatos cuerpo
+              | if cuerpo
+              | unless cuerpo
+              | impresion cuerpo
+              | operacionSet cuerpo
+              | operacionarray cuerpo
+              | operacionHash cuerpo
+              |
+              '''
+
 
 def p_loop_for(p):
     'loop : FOR LOCALVAR IN rango cuerpo END'
 
 def p_declaracion(p):
     '''declaracion : tiposvariables EQUAL datos
-                   | tiposvariables EQUAL estructuras'''
+                   | tiposvariables EQUAL estructurasDatos
+                   | tiposvariables EQUAL expresion
+                   | tiposvariables EQUAL declaracion
+                   '''
+
+#nuevas reglas sintácticas SP3
+####
+def p_asignacion_variable(p):
+    '''asignacion : LOCALVAR PLUSASSIGN datosAsignacion
+                   | LOCALVAR MINASSIGN datosAsignacion
+                   | LOCALVAR DIVASSIGN datosAsignacion
+                   | LOCALVAR TIMESASSIGN datosAsignacion
+                   | LOCALVAR MODASSIGN datosAsignacion
+                   | LOCALVAR EXPASSIGN datosAsignacion'''
+
+def p_datosAsignacion(p):
+    '''datosAsignacion : number
+                        | LOCALVAR'''
+#####
 
 def p_tiposvariables(p):
     '''tiposvariables : VAR
                   | LOCALVAR
                   | CONSTANT'''
 def p_datos(p):
-    '''datos : NUMBER
+    '''datos : INTEGER
               | FLOAT
-              | STRING '''
+              | STRING
+              '''
 
-def p_estructuras(p):
-    '''estructuras : hash
-                    | set'''
 
-def p_cuerpo(p):
-    '''cuerpo : declaracion
-              | loop
-              | impresion'''
+def p_estructurasDatos(p):
+    '''estructurasDatos : hash
+                        | array
+                        | set '''
 
 def p_hash(p):
-    'hash : LCURLYBRACKET elementoHash RCURLYBRACKET masopciones'
+    'hash : LCURLYBRACKET elementoHash RCURLYBRACKET'
 
+#semantica para hash
 def p_elementoHash(p):
-    'elementoHash : datos EQUAL GREATERTHAN datos maselementos'
+    '''elementoHash : datos EQUAL GREATERTHAN datos maselementos
+                     |'''
 
-def p_maselementos(p):
+def p_maselementosHash(p):
     '''maselementos :
                 | COMMA elementoHash maselementos'''
 
-def p_masopciones(p):
-    '''masopciones :
-                   | LOCALVAR DOT funcionesHash masopciones'''
+def p_hashAccess(p):
+    'operacionHash : hash LBRACKET datos RBRACKET'
 
-def p_funciones_hash(p):
-    '''funcionesHash : INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES
-                     | DELETE LPARENTHESES datos RPARENTHESES
-                     | KEYS'''
+def p_hashAdd(p):
+    'operacionHash : hash LBRACKET datos RBRACKET EQUAL datos '
+
+def p_hashInclude(p):
+    'operacionHash : hash DOT INCLUDE QUESTIONMARK LPARENTHESES datos RPARENTHESES '
+
+def p_hashDelete(p):
+    'operacionHash : hash DOT DELETE LPARENTHESES datos RPARENTHESES '
+
+def p_hashKeys(p):
+    'operacionHash : hash DOT KEYS'
 
 def p_rango(p):
-    '''rango : NUMBER RANGEINCLUSIVE NUMBER
-              | NUMBER RANGEXCLUSIVE NUMBER'''
-
+    '''rango : INTEGER RANGEINCLUSIVE INTEGER
+              | INTEGER RANGEXCLUSIVE INTEGER'''
 
 def p_impresion_puts(p):
     '''impresion : PUTS datos
                  | PUTS LOCALVAR
-                 | PUTS masopciones'''
-
+                 '''
 
 def p_impresion_print(p):
     '''impresion : PRINT datos
                  | PRINT LOCALVAR
-                 | PRINT masopciones'''
+                 '''
+
+#semantica para operaciones matematicas
+def p_number(p):
+    '''number : INTEGER
+              | FLOAT '''
+
+def p_expresion_factores(p):
+    '''expresion : operacion
+                  | LPARENTHESES operacion RPARENTHESES
+                  | LPARENTHESES operacion RPARENTHESES masoperaciones'''
+
+def p_operacion(p):
+    '''operacion : number operador number
+                 | operacion masoperaciones'''
+
+def p_operaciones(p):
+    '''masoperaciones : operador expresion masoperaciones
+                    | operador number
+                    | operador expresion
+                    '''
+
+def p_operadores_matematicos(p):
+    '''operador : PLUS
+                  | MINUS
+                  | MULTIPLY
+                  | DIVIDE
+                  | PERCENTAGE'''
+
+
 #Adriana Riofrio
+
 
 #Luis Anchundia
 def p_array(p):
@@ -118,21 +177,23 @@ def p_operadores(p):
                  | LESSTHAN
                  | GREQUAL
                  | LEQUAL'''
+
 def p_datosvarios(p):
     '''datosvarios : datos
                 | tiposvariables'''
+
 def p_datosarray(p):
     '''datosarray : datosvarios
                     | datosarray COMMA datosvarios'''
 
 def p_operacionarray(p):
-    'operacionarray : tiposvariables LBRACKET NUMBER RBRACKET'
+    'operacionarray : LOCALVAR LBRACKET INTEGER RBRACKET'
 
 def p_arraynprimerosnumeros(p):
-    'operacionarray : tiposvariables DOT TAKE LPARENTHESES NUMBER RPARENTHESES '
+    'operacionarray : LOCALVAR DOT TAKE LPARENTHESES INTEGER RPARENTHESES '
 
 def p_arraynultimosnumeros(p):
-    'operacionarray : tiposvariables DOT DROP LPARENTHESES NUMBER RPARENTHESES'
+    'operacionarray : LOCALVAR DOT DROP LPARENTHESES INTEGER RPARENTHESES'
 #Luis Anchundia
 
 
@@ -161,9 +222,8 @@ def p_set(p):
 def p_elementoSet(p):
     '''elementoSet :
                     | datos
-                    | tiposvariables
                     | datos otroElemento
-                    | tiposvariables otroElemento'''
+                    '''
 
 
 def p_otroElemento(p):
@@ -185,6 +245,7 @@ def p_operacionSet_eliminar(p):
                     | set DOT DELETE LPARENTHESES tiposvariables RPARENTHESES'''
 
 #Xavier Garcia
+
 
 
 # Error rule for syntax errors
@@ -210,6 +271,17 @@ pruebas = [
     "arreglo[1]",
     "arreglo.take(2)",
     "arreglo.drop(4)",
+    "hash={3=>'meow', 'r'=>9.8, 3.9=>668}",
+    "{3=>'meow', 'r'=>9.8, 3.9=>668}.delete(8)",
+    "{3=>'meow', 'r'=>9.8, 3.9=>668}.include?(3)",
+    "{3=>'meow', 'r'=>9.8, 3.9=>668}.keys",
+    "var3 += 45.67",
+    "var3 = (8+5+6)",
+    "for x in 5..120 m1=34*34+45/89 end",
+    "for x in 5..120 m1=(34.56+78-89+56+45/3-(3-4+6))+(34*23/4)/4 var4-=67 print m1 end",
+    "puts 34.8",
+    "var = (4-5)",
+    "$variable = @var56 = var = 'meow'",
     ""
 ]
 
