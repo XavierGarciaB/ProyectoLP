@@ -41,6 +41,8 @@ def p_cuerpo(p):
               | operacionarray cuerpo
               | operacionHash cuerpo
               | string cuerpo
+              | integer cuerpo
+              | float cuerpo
               |
               '''
 
@@ -229,6 +231,37 @@ def p_operadores(p):
                  | GREQUAL
                  | LEQUAL'''
 
+
+#semantica para integer
+
+def p_raizinteger(p):
+    ' integer : INTEGERW DOT SQRT LPARENTHESES INTEGER RPARENTHESES'
+
+def p_techointeger(p):
+    '''integer : INTEGER DOT CEIL LPARENTHESES RPARENTHESES
+            | INTEGER DOT CEIL LPARENTHESES INTEGER RPARENTHESES '''
+
+def p_pisointeger(p):
+    '''integer : INTEGER DOT FLOOR LPARENTHESES RPARENTHESES
+                | INTEGER DOT FLOOR LPARENTHESES INTEGER RPARENTHESES'''
+
+def p_valorabsolutointeger(p):
+    'integer : INTEGER DOT ABS'
+
+
+#semantica para float
+def p_techofloat(p):
+    '''float : FLOAT DOT CEIL LPARENTHESES RPARENTHESES
+            | FLOAT DOT CEIL LPARENTHESES INTEGER RPARENTHESES '''
+
+def p_pisofloat(p):
+    '''float : FLOAT DOT FLOOR LPARENTHESES RPARENTHESES
+                | FLOAT DOT FLOOR LPARENTHESES INTEGER RPARENTHESES'''
+
+def p_valorabsolutofloat(p):
+    'float : FLOAT DOT ABS'
+
+
 #Luis Anchundia
 
 
@@ -297,7 +330,7 @@ def p_operacionSet_limpiar(p):
 def p_operacionSet_eliminar(p):
     '''operacionSet : set DOT DELETE LPARENTHESES datos RPARENTHESES
                     | set DOT DELETE LPARENTHESES tiposvariables RPARENTHESES'''
-#
+
 
 # Semantica para Strings
 def p_string_concat(p):

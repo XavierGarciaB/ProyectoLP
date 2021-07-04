@@ -51,7 +51,12 @@ reserved = {
     'push' : 'PUSH',
     'pop' : 'POP',
     'length' : 'LENGTH',
-    'empty' : 'EMPTY'
+    'empty' : 'EMPTY',
+    'Integer' : 'INTEGERW',
+    'sqrt' : 'SQRT',
+    'ceil' : 'CEIL',
+    'floor' : 'FLOOR',
+    'abs' : 'ABS'
     #Luis Anchundia
 
 
