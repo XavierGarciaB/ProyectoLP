@@ -77,11 +77,18 @@ def p_tiposvariables(p):
     '''tiposvariables : VAR
                   | LOCALVAR
                   | CONSTANT'''
+
+
 def p_datos(p):
     '''datos : INTEGER
               | FLOAT
               | STRING
+              | booleanos
               '''
+
+def p_booleanos(p):
+    '''booleanos : TRUE
+                  | FALSE'''
 
 
 def p_estructurasDatos(p):
@@ -116,6 +123,13 @@ def p_hashDelete(p):
 def p_hashKeys(p):
     'operacionHash : hash DOT KEYS'
 
+def p_hashEmpty(p):
+    'operacionHash : hash DOT EMPTY QUESTIONMARK'
+
+def p_hashNumberElem(p):
+    '''operacionHash : hash DOT SIZE
+                     | hash DOT LENGTH'''
+
 def p_rango(p):
     '''rango : INTEGER RANGEINCLUSIVE INTEGER
               | INTEGER RANGEXCLUSIVE INTEGER'''
@@ -130,7 +144,7 @@ def p_impresion_print(p):
                  | PRINT LOCALVAR
                  '''
 
-#semantica para operaciones matematicas
+#semántica para operaciones aritméticas
 def p_number(p):
     '''number : INTEGER
               | FLOAT '''
@@ -397,9 +411,9 @@ pruebas = [
     "set[1,2].clear",
     "if var==5 saludo='Buenos dias' end ",
     "arreglo = [25, 54, 39]",
-    "arreglo[1]",
-    "arreglo.take(2)",
-    "arreglo.drop(4)",
+    "[25, 54, 39][1]",
+    "[25, 54, 39].take(2)",
+    "[25, 54, 39].drop(4)",
     "hash={3=>'meow', 'r'=>9.8, 3.9=>668}",
     "{3=>'meow', 'r'=>9.8, 3.9=>668}.delete(8)",
     "{3=>'meow', 'r'=>9.8, 3.9=>668}.include?(3)",
@@ -416,6 +430,9 @@ pruebas = [
     "[a].delete(4)",
     "[1,2].length()",
     "[new,old].empty?",
+    "{}.empty?",
+    "{3=>true, 'r'=>9.8, 3.9=>668}.length",
+    "{3=>'meow', 'r'=>false, 3.9=>668}.size",
     ""
 ]
 

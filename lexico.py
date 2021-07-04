@@ -37,6 +37,7 @@ reserved = {
     'include': 'INCLUDE',
     'delete': 'DELETE',
     'keys': 'KEYS',
+    'size': 'SIZE',
     #Adriana Riofrio
 
     #Luis Anchundia
@@ -343,7 +344,7 @@ def getTokens(lexer):
 
  # Build the lexer
 lexer = lex.lex()
-lineas = [ ":no ", "var = (4-5)", ""]
+lineas = [ ":no true false ", "var = (4-5)", ""]
 cont = 0
 linea = lineas[cont]
 while linea != "":
