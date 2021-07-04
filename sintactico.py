@@ -40,6 +40,7 @@ def p_cuerpo(p):
               | operacionSet cuerpo
               | operacionarray cuerpo
               | operacionHash cuerpo
+              | string cuerpo
               |
               '''
 
@@ -231,8 +232,26 @@ def p_operadores(p):
 
 
 #Xavier Garcia
+
 def p_unless(p):
-    '''unless : UNLESS condiciones cuerpo ELSE cuerpo END'''
+    '''unless : UNLESS expresionCondicional cuerpo ELSE cuerpo END'''
+
+
+# Semantica para booleanos
+def p_expresionCondicional(p):
+    '''expresionCondicional : boolean
+                            | EXCLAMATION LPARENTHESES boolean RPARENTHESES'''
+
+
+def p_operadorBinario(p):
+    '''operadorBinario : DOUBLEAMPERSAND
+                        | DOUBLEPIPE'''
+
+
+def p_boolean(p):
+    '''boolean : condiciones
+                | EXCLAMATION LPARENTHESES condiciones RPARENTHESES
+                | boolean operadorBinario boolean'''
 
 
 def p_condiciones_var(p):
@@ -246,8 +265,9 @@ def p_condiciones_datos(p):
 def p_condiciones_mix(p):
     '''condiciones : tiposvariables operadores datos
                    | datos operadores tiposvariables'''
+#
 
-
+# Semantica para set
 def p_set(p):
     '''set : SET LBRACKET  elementoSet RBRACKET'''
 
@@ -276,6 +296,24 @@ def p_operacionSet_limpiar(p):
 def p_operacionSet_eliminar(p):
     '''operacionSet : set DOT DELETE LPARENTHESES datos RPARENTHESES
                     | set DOT DELETE LPARENTHESES tiposvariables RPARENTHESES'''
+#
+
+# Semantica para Strings
+def p_string_concat(p):
+    '''string : STRING PLUS STRING'''
+
+def p_string_repeat(p):
+    '''string : STRING MULTIPLY INTEGER'''
+
+def p_string_operations(p):
+    '''string : STRING DOT stringOpt'''
+
+def p_stringOpt(p):
+    '''stringOpt : UPCASE
+                    | DOWNCASE
+                    | LENGTH
+                    | CAPS
+                    | INSERT LPARENTHESES INTEGER COMMA STRING RPARENTHESES'''
 
 #Xavier Garcia
 
@@ -295,7 +333,17 @@ parser = yacc.yacc()
 
 pruebas = [
     "unless x===3 x=10 else x=20 end",
+    "unless !(x===3) x=4 else x=5 end",
+    "unless !(x>3 && x<10) x=11 else x=0 end",
+    "unless !(x<10) || y!=5 print x else print y end",
     "valores = set[1,2]",
+    "'hola' + 'mundo'",
+    "'hola' * 10",
+    "'hola'.upcase",
+    "'HOLA MUNDO'.downcase",
+    "'un perro'.capitalize",
+    "'hola'.insert(0, 'H')",
+    "'Una cadena de caracteres'.length",
     "set[1,2].add(3)",
     "set[1,2].delete(1)",
     "set[1,2].clear",

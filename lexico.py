@@ -16,6 +16,11 @@ reserved = {
     'set': 'SET',
     'add': 'ADD',
     'clear': 'CLEAR',
+    'upcase': 'UPCASE',
+    'downcase': 'DOWNCASE',
+    'capitalize': 'CAPS',
+    'insert': 'INSERT',
+    'length': 'LENGTH',
     #Xavier Garcia
 
     #Adriana Riofrio
@@ -63,7 +68,7 @@ tokens = (
     'DOUBLELESSTHAN',
     'TWOGREATERTHAN',
     'AMPERSAND',
-    'BARRA',
+    'PIPE',
     'CIRCUMFLEX',
     'DOUBLEEQUAL',
     'TRIPLEEQUAL',
@@ -135,7 +140,7 @@ t_PERCENTAGE = r'%'
 t_DOUBLELESSTHAN = r'<<'
 t_TWOGREATERTHAN = r'>>'
 t_AMPERSAND = r'&'
-t_BARRA = r'\|'
+t_PIPE = r'\|'
 t_CIRCUMFLEX = r'\^'
 t_DOUBLEEQUAL = r'=='
 t_TRIPLEEQUAL = r'==='
@@ -331,7 +336,7 @@ def getTokens(lexer):
 
  # Build the lexer
 lexer = lex.lex()
-lineas = [ ":no ",""]
+lineas = [ ":no ", "'hola'", ""]
 cont = 0
 linea = lineas[cont]
 while linea != "":
