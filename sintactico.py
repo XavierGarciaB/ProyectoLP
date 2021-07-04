@@ -80,8 +80,8 @@ def p_tiposvariables(p):
 
 
 def p_datos(p):
-    '''datos : INTEGER
-              | FLOAT
+    '''datos : enteros
+              | decimales
               | STRING
               | booleanos
               '''
@@ -144,10 +144,18 @@ def p_impresion_print(p):
                  | PRINT LOCALVAR
                  '''
 
+def p_enteros(p):
+    '''enteros : INTEGER
+               | MINUS INTEGER'''
+
+def p_decimales(p):
+    '''decimales : FLOAT
+                 | MINUS FLOAT'''
 #semántica para operaciones aritméticas
+
 def p_number(p):
-    '''number : INTEGER
-              | FLOAT '''
+    '''number : enteros
+              | decimales '''
 
 def p_expresion_factores(p):
     '''expresion : operacion
@@ -184,8 +192,6 @@ def p_array(p):
 
 def p_datosvarios(p):
     '''datosvarios : datos
-                | number
-                | VAR
                 | LOCALVAR'''
 
 def p_datosarray(p):
@@ -249,7 +255,7 @@ def p_operadores(p):
 #semantica para integer
 
 def p_raizinteger(p):
-    ' integer : INTEGERW DOT SQRT LPARENTHESES INTEGER RPARENTHESES'
+    ' integer : INTEGER DOT SQRT LPARENTHESES INTEGER RPARENTHESES'
 
 def p_techointeger(p):
     '''integer : INTEGER DOT CEIL LPARENTHESES RPARENTHESES
@@ -421,9 +427,9 @@ pruebas = [
     "var3 += 45.67",
     "var3 = (8+5+6)",
     "for x in 5..120 m1=34*34+45/89 end",
-    "for x in 5..120 m1=(34.56+78-89+56+45/3-(3-4+6))+(34*23/4)/4 var4-=67 print m1 end",
+    "for x in 5..120 m1=(-34.56+-78-89+56+45/3-(3-4+6))+(34*23/4)/4 var4-=67 print m1 end",
     "puts 34.8",
-    "var = (4-5)",
+    "var = -5",
     "$variable = @var56 = var = 'meow'",
     " [4,6,mia].push(4).push(6).push(4)",
     " [4,6,mia].pop(4)",
