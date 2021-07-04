@@ -333,6 +333,7 @@ def p_casting_toString(p):
 def p_error(p):
     if p:
         print("Syntax error at token", p.type)
+        return p.type
         # Just discard the token and tell the parser it's okay.
     else:
         print("Syntax error at EOF")

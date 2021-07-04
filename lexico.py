@@ -220,7 +220,7 @@ def t_STRING(t):
 
 # A regular expression rule with some action code
 def t_INTEGER(t):
-    r'(\d+|-\d+)'
+    r'\d+'
     t.value = int(t.value)
     return t
 
@@ -338,7 +338,7 @@ def getTokens(lexer):
 
  # Build the lexer
 lexer = lex.lex()
-lineas = [ ":no ", "'5'.to_i", ""]
+lineas = [ ":no ", "var = (4-5)", ""]
 cont = 0
 linea = lineas[cont]
 while linea != "":
