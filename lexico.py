@@ -21,6 +21,9 @@ reserved = {
     'capitalize': 'CAPS',
     'insert': 'INSERT',
     'length': 'LENGTH',
+    'to_i': 'TO_I',
+    'to_f': 'TO_F',
+    'to_s': 'TO_S',
     #Xavier Garcia
 
     #Adriana Riofrio
@@ -128,7 +131,6 @@ tokens = (
 
 # Regular expression rules for simple tokens
 #Xavier Garcia
-t_SET = r'Set'
 t_EXCLAMATION = r'\!'
 t_PLUS = r'\+'
 t_MINUS = r'-'
@@ -218,7 +220,7 @@ def t_STRING(t):
 
 # A regular expression rule with some action code
 def t_INTEGER(t):
-    r'\d+'
+    r'(\d+|-\d+)'
     t.value = int(t.value)
     return t
 
@@ -336,7 +338,7 @@ def getTokens(lexer):
 
  # Build the lexer
 lexer = lex.lex()
-lineas = [ ":no ", "'hola'", ""]
+lineas = [ ":no ", "'5'.to_i", ""]
 cont = 0
 linea = lineas[cont]
 while linea != "":

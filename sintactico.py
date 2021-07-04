@@ -53,6 +53,7 @@ def p_declaracion(p):
                    | tiposvariables EQUAL estructurasDatos
                    | tiposvariables EQUAL expresion
                    | tiposvariables EQUAL declaracion
+                   | tiposvariables EQUAL casting
                    '''
 
 #nuevas reglas sintácticas SP3
@@ -315,6 +316,15 @@ def p_stringOpt(p):
                     | CAPS
                     | INSERT LPARENTHESES INTEGER COMMA STRING RPARENTHESES'''
 
+def p_casting_toInt(p):
+    '''casting : STRING DOT TO_I'''
+
+def p_casting_toFloat(p):
+    '''casting : STRING DOT TO_F'''
+
+def p_casting_toString(p):
+    '''casting : number DOT TO_S'''
+
 #Xavier Garcia
 
 
@@ -344,6 +354,10 @@ pruebas = [
     "'un perro'.capitalize",
     "'hola'.insert(0, 'H')",
     "'Una cadena de caracteres'.length",
+    "x = '5'.to_i",
+    "x = '134.56'.to_f",
+    "x = 512.to_s",
+    "x = 3.14.to_s",
     "set[1,2].add(3)",
     "set[1,2].delete(1)",
     "set[1,2].clear",
