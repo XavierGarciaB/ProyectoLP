@@ -13,7 +13,6 @@ reserved = {
     'begin': 'BEGIN',
     'def': 'DEF',
     'unless': 'UNLESS',
-    'set': 'SET',
     'add': 'ADD',
     'clear': 'CLEAR',
     'upcase': 'UPCASE',
@@ -82,6 +81,7 @@ tokens = (
     'DOUBLEEQUAL',
     'TRIPLEEQUAL',
     'ALERT',
+    'SET',
     #Xavier Garcia
 
     #Adriana Riofrio
@@ -205,7 +205,7 @@ def t_LOCALVAR(t):
     return t
 
 def t_CONSTANT(t):
-    r'[A-Z]+'
+    r'[A-Z][A-Z]+'
     t.type = reserved.get(t.value, 'CONSTANT')
     return t
 
@@ -238,6 +238,11 @@ def t_newline(t):
 
 
 #Xavier Garcia
+def t_SET(t):
+    r'Set'
+    return t
+
+
 def t_ALERT(t):
     r'"\w*\\a\w*"'
     t.value = r'\a'
@@ -330,29 +335,12 @@ def t_BOOLEAN(t):
 
 # Error handling rule
 def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
+    error_list.append("LEXICAL ERROR in line %s: Illegal character '%s'" % (t.lexer.lineno, t.value[0]))
+    print("Illegal character %s" % t.value[0])
     t.lexer.skip(1)
 
 
-def getTokens(lexer):
-    while True:
-        tok = lexer.token()
-        print("Dentro de getTokens()")
-        if not tok:
-            print(lexer.lineno)
-            lexer.lineno = 0
-            break  # No more input
-        print(tok)
+error_list = []
 
-
- # Build the lexer
+# Build the lexer
 lexer = lex.lex()
-#lineas = [ ":no true false ", "var = (4-5)", ""]
-#cont = 0
-#linea = lineas[cont]
-#while linea != "":
-#    lexer.input(linea)
-#    getTokens(lexer)
-#    cont = cont + 1
-#    linea = lineas[cont]
-#print("Succesfull")

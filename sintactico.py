@@ -1,5 +1,6 @@
 import ply.yacc as yacc
-from lexico import tokens
+from lexico import tokens, error_list, lexer
+
 #Adriana Riofrio
 def p_inicio(p):
     '''inicio : cuerpo
@@ -381,11 +382,10 @@ def p_casting_toString(p):
 #Xavier Garcia
 
 
-
 # Error rule for syntax errors
 def p_error(p):
     if p:
-        error_list.append("ERROR in line %s, illegal Token %s as %s" % (p.lineno, p.value, p.type))
+        error_list.append("SYNTAX ERROR in line %s: Illegal Token %s as %s" % (p.lineno, p.value, p.type))
         print("Syntax error at token", p.type)
         return p.type
         # Just discard the token and tell the parser it's okay.
@@ -396,67 +396,83 @@ def p_error(p):
 
 parser = yacc.yacc()
 
-error_list = []
+code = '''
+    unless x===3
+        x=10 
+    else
+        x=20
+    end
+    unless !(x===3)
+        x=4
+    else
+        x=5
+    end
+    unless !(x>3 && x<10)
+        x=11
+    else
+        x=0
+    end
+    unless !(x<10) || y!=5
+        print x
+    else
+        print y
+    end
+    valores = Set[1,2]
+    'hola' + 'mundo'
+    'hola' * 10
+    'hola'.upcase
+    'HOLA MUNDO'.downcase
+    'un perro'.capitalize
+    'hola'.insert(0, 'H')
+    'Una cadena de caracteres'.length
+    x = '5'.to_i
+    x = '134.56'.to_f
+    x = 512.to_s
+    x = 3.14.to_s
+    Set[1,2].add(3)
+    Set[1,2].delete(1)
+    Set[1,2].clear
+    if var==5
+        saludo='Buenos dias'
+    end
+    arreglo = [25, 54, 39]
+    [25, 54, 39][1]
+    [25, 54, 39].take(2)
+    [25, 54, 39].drop(4)
+    hash={3=>'meow', 'r'=>9.8, 3.9=>668}
+    {3=>'meow', 'r'=>9.8, 3.9=>668}.delete(8)
+    {3=>'meow', 'r'=>9.8, 3.9=>668}.include?(3)
+    {3=>'meow', 'r'=>9.8, 3.9=>668}.keys
+    var3 += 45.67
+    var3 = (8+5+6)
+    for x in 5..120
+        m1=34*34+45/89
+    end
+    for x in 5..120
+        m1=(-34.56+-78-89+56+45/3-(3-4+6))+(34*23/4)/4
+        var4-=67
+        print m1
+    end
+    puts 34.8
+    var = -5
+    $variable = @var56 = var = 'meow'
+    [4,6,mia].push(4).push(6).push(4)
+    [4,6,mia].pop(4)
+    [a].delete(4)
+    [1,2].length()
+    [new,old].empty?
+    {3=>true, 'r'=>9.8, 3.9=>668}.length
+    {3=>'meow', 'r'=>false, 3.9=>668}.size
+'''
 
-pruebas = [
-    "unless x===3 x=10 else x=20 end",
-    "unless !(x===3) x=4 else x=5 end",
-    "unless !(x>3 && x<10) x=11 else x=0 end",
-    "unless !(x<10) || y!=5 print x else print y end",
-    "valores = set[1,2]",
-    "'hola' + 'mundo'",
-    "'hola' * 10",
-    "'hola'.upcase",
-    "'HOLA MUNDO'.downcase",
-    "'un perro'.capitalize",
-    "'hola'.insert(0, 'H')",
-    "'Una cadena de caracteres'.length",
-    "x = '5'.to_i",
-    "x = '134.56'.to_f",
-    "x = 512.to_s",
-    "x = 3.14.to_s",
-    "set[1,2].add(3)",
-    "set[1,2].delete(1)",
-    "set[1,2].clear",
-    "if var==5 saludo='Buenos dias' end ",
-    "arreglo = [25, 54, 39]",
-    "[25, 54, 39][1]",
-    "[25, 54, 39].take(2)",
-    "[25, 54, 39].drop(4)",
-    "hash={3=>'meow', 'r'=>9.8, 3.9=>668}",
-    "{3=>'meow', 'r'=>9.8, 3.9=>668}.delete(8)",
-    "{3=>'meow', 'r'=>9.8, 3.9=>668}.include?(3)",
-    "{3=>'meow', 'r'=>9.8, 3.9=>668}.keys",
-    "var3 += 45.67",
-    "var3 = (8+5+6)",
-    "for x in 5..120 m1=34*34+45/89 end",
-    "for x in 5..120 m1=(-34.56+-78-89+56+45/3-(3-4+6))+(34*23/4)/4 var4-=67 print m1 end",
-    "puts 34.8",
-    "var = -5",
-    "$variable = @var56 = var = 'meow'",
-    " [4,6,mia].push(4).push(6).push(4)",
-    " [4,6,mia].pop(4)",
-    "[a].delete(4)",
-    "[1,2].length()",
-    "[new,old].empty?",
-    "{}.empty?",
-    "{3=>true, 'r'=>9.8, 3.9=>668}.length",
-    "{3=>'meow', 'r'=>false, 3.9=>668}.size",
-    ""
-]
-
-
-#print("ALGORITMO DE PRUEBAS")
-#cont = 0
-#linea = pruebas[cont]
-#while linea != "":
-#    #try:
-#    #    s = input('>>')
-#    #except EOFError:
-#    #    break
-#    #if not s: continue
-#    print(linea)
-#    result = parser.parse(linea)
-#    print(result)
-#    cont = cont + 1
-#    linea = pruebas[cont]
+print("ALGORITMO DE PRUEBA")
+lexer.input(code)
+while True:
+    tok = lexer.token()
+    if not tok:
+        break  # No more input
+    print(tok)
+result = parser.parse(code)
+print(result)
+for error in error_list:
+    print(error)
