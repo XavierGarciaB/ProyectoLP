@@ -385,6 +385,7 @@ def p_casting_toString(p):
 # Error rule for syntax errors
 def p_error(p):
     if p:
+        error_list.append("ERROR in line %s, illegal Token %s as %s" % (p.lineno, p.value, p.type))
         print("Syntax error at token", p.type)
         return p.type
         # Just discard the token and tell the parser it's okay.
@@ -394,6 +395,8 @@ def p_error(p):
 
 
 parser = yacc.yacc()
+
+error_list = []
 
 pruebas = [
     "unless x===3 x=10 else x=20 end",
@@ -443,17 +446,17 @@ pruebas = [
 ]
 
 
-print("ALGORITMO DE PRUEBAS")
-cont = 0
-linea = pruebas[cont]
-while linea != "":
-    #try:
-    #    s = input('>>')
-    #except EOFError:
-    #    break
-    #if not s: continue
-    print(linea)
-    result = parser.parse(linea)
-    print(result)
-    cont = cont + 1
-    linea = pruebas[cont]
+#print("ALGORITMO DE PRUEBAS")
+#cont = 0
+#linea = pruebas[cont]
+#while linea != "":
+#    #try:
+#    #    s = input('>>')
+#    #except EOFError:
+#    #    break
+#    #if not s: continue
+#    print(linea)
+#    result = parser.parse(linea)
+#    print(result)
+#    cont = cont + 1
+#    linea = pruebas[cont]

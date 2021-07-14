@@ -337,19 +337,22 @@ def t_error(t):
 def getTokens(lexer):
     while True:
         tok = lexer.token()
+        print("Dentro de getTokens()")
         if not tok:
+            print(lexer.lineno)
+            lexer.lineno = 0
             break  # No more input
         print(tok)
 
 
  # Build the lexer
 lexer = lex.lex()
-lineas = [ ":no true false ", "var = (4-5)", ""]
-cont = 0
-linea = lineas[cont]
-while linea != "":
-    lexer.input(linea)
-    getTokens(lexer)
-    cont = cont + 1
-    linea = lineas[cont]
-print("Succesfull")
+#lineas = [ ":no true false ", "var = (4-5)", ""]
+#cont = 0
+#linea = lineas[cont]
+#while linea != "":
+#    lexer.input(linea)
+#    getTokens(lexer)
+#    cont = cont + 1
+#    linea = lineas[cont]
+#print("Succesfull")
